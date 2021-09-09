@@ -1,4 +1,4 @@
-import { httpRequest, httpRequestUploadFile } from "../../util/util.js";
+import { httpRequest, createURLFromBlob } from "../../util/helper.js";
 
 const state = {
     profile: {},
@@ -46,25 +46,23 @@ const actions = {
             "get",
             "/api/profile/me/profile-picture",
             {},
-            localStorage.getItem("WEB_APP_KIT_TOKEN")
+            localStorage.getItem("WEB_APP_KIT_TOKEN"),
+            undefined,
+            "blob"
         );
 
-        console.log(response);
-        //console.log(Buffer.from(response.data, "binary").toString("base64"));
+        const profilePicURL = createURLFromBlob(response.data);
 
-        let imageURL =
-            "data:image/jpg;base64, " +
-            Buffer.from(response.data, "binary").toString("base64");
-
-        return imageURL;
+        return profilePicURL;
     },
 
     async handleUploadUserProfilePic({ commit }, formData) {
-        const response = await httpRequestUploadFile(
+        const response = await httpRequest(
             "post",
             "/api/profile/me/upload-profile-picture",
             formData,
-            localStorage.getItem("WEB_APP_KIT_TOKEN")
+            localStorage.getItem("WEB_APP_KIT_TOKEN"),
+            "multipart/form-data"
         );
 
         commit("SET_USER_PROFILE", response.data.user);

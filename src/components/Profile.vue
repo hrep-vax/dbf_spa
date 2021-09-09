@@ -237,10 +237,11 @@
 </template>
 
 <script>
-    import { ValidationObserver } from 'vee-validate';
+    import { ValidationObserver } from 'vee-validate'
     import Vue from 'vue'
     import TextInput from '../components/TextInput.vue'
     import { mapActions } from 'vuex' 
+    import {createURLFromBlob } from '../util/helper'
 
 
     export default {
@@ -296,23 +297,8 @@
 
                 }
                 catch (error) {
-                    console.log("error", error.response.data)
-                    let errorMessage = ''
-                    const errorCode = error.response.data.errorCode
-
-                    switch (errorCode) {
-                        case 'UNAUTHENTICATED_ERROR': {
-                            errorMessage = 'Session is expired'
-                            break
-                        }
-                        default:
-                            errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
-                    }
-
-                    Vue.$toast.open({
-                        message: errorMessage,
-                        type: "error"
-                    });
+                    console.log("[Show Profile] ", error)
+                    console.log('hoy', error.response.data)
                 }
 
                 this.isLoading = false;
@@ -346,27 +332,28 @@
                     });
                 }
                 catch (error) {
-                    console.log("error", error.response.data)
-                    let errorMessage = ''
-                    const errorCode = error.response.data.errorCode
+                    console.log("[Save Profile] ", error)
 
-                    switch (errorCode) {
-                        case 'VALIDATION_ERROR': {
-                            errorMessage = 'Profile field/s format invalid'
-                            break
+                    if ( error.response.data ) {
+                        let errorMessage = ''
+                        const errorCode = error.response.data.errorCode
+
+                        switch (errorCode) {
+                            case 'VALIDATION_ERROR': {
+                                errorMessage = 'Profile field/s format invalid'
+                                break
+                            }
+                            default:
+                                errorMessage = 'Oops... Something went wrong on our end. '
                         }
-                        case 'UNAUTHENTICATED_ERROR': {
-                            errorMessage = 'Session is expired'
-                            break
+
+                        if( errorCode !== "UNAUTHENTICATED_ERROR") {
+                            Vue.$toast.open({
+                                message: errorMessage,
+                                type: "error"
+                            });
                         }
-                        default:
-                            errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
                     }
-
-                    Vue.$toast.open({
-                        message: errorMessage,
-                        type: "error"
-                    });
                 }
 
                 this.isLoading = false;
@@ -379,24 +366,28 @@
                     this.profilePictureSrc = imgURL;
                 }
                 catch (error) {
-                    //console.log("[File] Profile Picture Error", error)
+                    console.log("[File] Profile Picture Error", error)
                     
-                    if(  error.response.data ) {
+                    if( error.response.data ) {
                         let errorMessage = ''
                         const errorCode = error.response.data.errorCode
-
+                        console.log('hey', error.response.data)
                         switch (errorCode) {
                             case 'RESOURCE_NOT_FOUND_ERROR': {
                                 errorMessage = 'Profile Picture not found.'
                                 break
                             }
                             default:
-                                errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
+                                errorMessage = 'Oops... Something went wrong on our end. '
                         }
 
-                        console.log("[Server] Profile Picture Error", errorMessage)
+                        if( errorCode !== "UNAUTHENTICATED_ERROR") {
+                            Vue.$toast.open({
+                                message: errorMessage,
+                                type: "error"
+                            });
+                        }
                     }
-                    
                 }
 
                 this.isProfilePictureLoading = false;
@@ -410,32 +401,17 @@
                     let formData = new FormData();
                     formData.append('image', this.profilePictureToUpload);
 
-                    let user = await this.handleUploadUserProfilePic(formData);
-                    console.log(user)
+                    await this.handleUploadUserProfilePic(formData);
 
-                    this.profilePictureSrc = window.URL.createObjectURL(this.profilePictureToUpload)
-                    
+                    this.profilePictureSrc = createURLFromBlob(this.profilePictureToUpload)
+
                     Vue.$toast.open({
                         message: "Profile picture updated successfully!",
                         type: "success"
                     });
                 }
                 catch (error) {
-                    console.log(error.response)
-                    if(  error.response.data ) {
-                        let errorMessage = ''
-                        const errorCode = error.response.data.errorCode
-
-                        switch (errorCode) {
-                            case 'UNAUTHENTICATED_ERROR': {
-                                errorMessage = 'Session is expired'
-                                break
-                            }
-                            default:
-                                errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
-                        }
-                        console.log("[Server] ", errorMessage)
-                    }
+                    console.log("[Change Profile Picture] ", error)
                 }
                 this.isProfilePictureLoading = false;
             }

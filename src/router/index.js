@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
 
     // check for protected route
     // if route requires authentication and the user is not authenticated , redirect to the login route
-    if (to.meta.requiresAuth && !isAuthenticatedUser) next("login");
+    if (to.meta.requiresAuth && !isAuthenticatedUser) next({ name: "Login" });
     else next();
 });
 

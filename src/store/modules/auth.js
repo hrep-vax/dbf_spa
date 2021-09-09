@@ -1,15 +1,21 @@
-import { httpRequest } from "../../util/util.js";
+import { httpRequest } from "../../util/helper.js";
 
 const state = {
     userDetails: {},
+    tokenIsExpired: false,
 };
 const mutations = {
     SET_USER_DETAILS(state, userDetails) {
         state.userDetails = userDetails;
     },
+    SET_TOKEN_EXPIRATION_STATE(state, isExpired) {
+        state.tokenIsExpired = isExpired;
+    },
 };
 
-const getters = {};
+const getters = {
+    getTokenIsExpiredState: (state) => state.tokenIsExpired,
+};
 
 const actions = {
     async handleLogin({ commit }, { email, password }) {
@@ -74,6 +80,9 @@ const actions = {
     async handleResetPassword(_, payload) {
         await httpRequest("post", "/api/auth/reset-password", payload);
         return;
+    },
+    handleSetTokenExpirationState({ commit }, state) {
+        commit("SET_TOKEN_EXPIRATION_STATE", state);
     },
 };
 

@@ -94,7 +94,7 @@
               break
             }
             default:
-              errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
+              errorMessage = 'Oops... Something went wrong on our end. '
           }
 
           Vue.$toast.open({

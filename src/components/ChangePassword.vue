@@ -9,7 +9,7 @@
         <ValidationObserver v-slot="{ invalid }">
             <form @submit.prevent="onSubmit" class="mt-8">
                 <div class="grid grid-cols-3 gap-6">
-                    <label for="full-name" class="text-sm font-medium text-gray-700 my-auto">
+                    <label for="old_password" class="text-sm font-medium text-gray-700 my-auto">
                         Current Password
                     </label>
                     <div class="col-span-2">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="grid grid-cols-3 gap-6">
                     
-                    <label for="email-address" class="text-sm font-medium text-gray-700 my-auto">
+                    <label for="password" class="text-sm font-medium text-gray-700 my-auto">
                         New Password
                     </label>
                     <div class="col-span-2">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="grid grid-cols-3 gap-6">
                     
-                    <label class="text-sm font-medium text-gray-700 my-auto">
+                    <label for="confim" class="text-sm font-medium text-gray-700 my-auto">
                         Confirm Password
                     </label>
                     <div class="col-span-2">
@@ -115,7 +115,7 @@
                         break
                     }
                     default:
-                        errorMessage = 'Oops... Something went wrong on our end. Please contact your server administrator.'
+                        errorMessage = 'Oops... Something went wrong on our end.'
                 }
 
                 Vue.$toast.open({
