@@ -1,13 +1,13 @@
 <template>
   <div class="changePassword mt-14 mx-auto border max-w-3xl rounded-xl shadow-lg overflow-hidden p-8">
     <div class="md:col-span-1 mb-10">
-      <div class="px-4 sm:px-0">
+      <div class="sm:px-0">
         <h3 class="text-xl font-semibold leading-6 text-gray-900 font">Change Password</h3>
       </div>
     </div>
     <ValidationObserver ref="changePasswordForm">
       <div class="mt-8">
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="old_password" class="text-sm font-medium text-gray-700 my-auto"> Current Password </label>
           <div class="col-span-2">
             <TextInput
@@ -24,7 +24,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="password" class="text-sm font-medium text-gray-700 my-auto"> New Password </label>
           <div class="col-span-2">
             <TextInput
@@ -43,7 +43,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="confim" class="text-sm font-medium text-gray-700 my-auto"> Confirm Password </label>
           <div class="col-span-2">
             <TextInput

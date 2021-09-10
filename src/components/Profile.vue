@@ -1,7 +1,7 @@
 <template>
-  <div class="profile mt-14 mb-8 mx-auto border max-w-4xl rounded-xl shadow-lg overflow-hidden p-8">
+  <div class="profile mt-4 sm:mt-14 mb-8 mx-auto border max-w-4xl rounded-xl shadow-lg overflow-hidden p-8">
     <div class="md:col-span-1">
-      <div class="px-4 sm:px-0">
+      <div class="mb-5 sm:mb-0">
         <h3 class="text-xl font-semibold leading-6 text-gray-900 font">Profile</h3>
         <p class="mt-1 text-md text-gray-600">This information is your profile information.</p>
       </div>
@@ -11,9 +11,8 @@
         <div class="border-t border-gray-200" />
       </div>
     </div>
-    <div class="grid grid-cols-3 gap-6">
+    <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
       <label class="text-sm font-medium text-gray-700 my-auto"> Profile Picture </label>
-
       <div class="col-span-2">
         <div class="flex items-center">
           <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
@@ -86,7 +85,7 @@
 
     <ValidationObserver ref="profileForm">
       <div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="first_name" class="text-sm font-medium text-gray-700 my-auto"> First Name* </label>
           <div class="col-span-2">
             <TextInput v-model="first_name" name="First Name" rules="required|max:255" id="first_name" />
@@ -97,7 +96,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="last_name" class="text-sm font-medium text-gray-700 my-auto"> Last Name* </label>
 
           <div class="col-span-2">
@@ -109,7 +108,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="middle_name" class="text-sm font-medium text-gray-700 my-auto"> Middle Name </label>
 
           <div class="col-span-2">
@@ -121,7 +120,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="email" class="text-sm font-medium text-gray-700 my-auto"> Email Address* </label>
 
           <div class="col-span-2">
@@ -133,7 +132,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="birthday" class="text-sm font-medium text-gray-700 my-auto"> Birthdate </label>
 
           <div class="col-span-2">
@@ -145,7 +144,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="mobile_number" class="text-sm font-medium text-gray-700 my-auto"> Mobile Number </label>
 
           <div class="col-span-2">
@@ -163,7 +162,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="sex" class="text-sm font-medium text-gray-700 my-auto"> Sex </label>
 
           <div class="col-span-2">
@@ -179,7 +178,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="home_address" class="text-sm font-medium text-gray-700 my-auto"> Home Address </label>
 
           <div class="col-span-2">
@@ -191,7 +190,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="barangay" class="text-sm font-medium text-gray-700 my-auto"> Barangay </label>
 
           <div class="col-span-2">
@@ -203,7 +202,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="city" class="text-sm font-medium text-gray-700 my-auto"> City </label>
 
           <div class="col-span-2">
@@ -215,7 +214,7 @@
             <div class="border-t border-gray-200" />
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="region" class="text-sm font-medium text-gray-700 my-auto"> Region </label>
 
           <div class="col-span-2">
