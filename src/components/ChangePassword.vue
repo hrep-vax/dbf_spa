@@ -27,7 +27,7 @@
                         New Password
                     </label>
                     <div class="col-span-2">
-                        <TextInput v-model="password" name="Password" rules="required|min:6|confirmed:confirmation" id="password" type="password"  />
+                        <TextInput v-model="password" name="Password" rules="required|min:6" vid="confirmation" id="password" type="password"  />
                     </div>
                 </div>
                 
@@ -42,7 +42,7 @@
                         Confirm Password
                     </label>
                     <div class="col-span-2">
-                        <TextInput v-model="password_confirmation" name="Confirm Password" rules="required" vid="confirmation" id="confirm" type="password" />
+                        <TextInput v-model="password_confirmation" name="Confirm Password" rules="required|confirmed:confirmation"  id="confirm" type="password" />
                     </div>
                 </div>
                 

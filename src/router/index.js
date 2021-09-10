@@ -6,6 +6,7 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import Register from "../views/Register.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import PageNotFound from "../views/PageNotFound.vue";
+import Landing from "../views/Landing.vue";
 
 import Home from "../components/Home.vue";
 import Profile from "../components/Profile.vue";
@@ -13,22 +14,14 @@ import ChangePassword from "../components/ChangePassword.vue";
 
 Vue.use(VueRouter);
 
-var isAuthenticated = false;
-
 const DEFAULT_WINDOW_TITLE = "Web App Kit";
 
 const routes = [
     {
         path: "/",
-        /*  
-      authentication checking
-      if authtoken already available, redirect to Dashboard 
-      if not, redirect to login 
-    */
-        beforeEnter: (to, from, next) => {
-            if (isAuthenticated) next({ path: "/dashboard" });
-            else next({ path: "/login" });
-        },
+        name: "Landing",
+        component: Landing,
+        meta: { title: "Welcome!" },
     },
     {
         path: "/login",

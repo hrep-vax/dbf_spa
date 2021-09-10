@@ -17,11 +17,11 @@
             </div>
             <div class="mb-3">
               <label for="password" class="sr-only">Password</label>
-              <TextInput v-model="password" name="Password" rules="required|min:6|confirmed:confirmation" id="password" type="password" placeholder="New Password" />
+              <TextInput v-model="password" name="Password" rules="required|min:6" vid="confirmation"  id="password" type="password" placeholder="New Password" />
             </div>
             <div class="mb-3">
               <label for="confirm-password" class="sr-only">Confirm Password</label>
-              <TextInput v-model="password_confirmation" name="Confirm Password" rules="required" vid="confirmation" id="confirm" type="password" placeholder="Confirm New Password" />
+              <TextInput v-model="password_confirmation" name="Confirm Password" rules="required|confirmed:confirmation" id="confirm" type="password" placeholder="Confirm New Password" />
             </div>
           </div>
 

@@ -1,8 +1,8 @@
 <template>
   <ValidationProvider tag="div" :rules="rules" :name="name" :vid="vid" v-slot="{ errors }">
     <input :id="id" :type="type" v-model="currentValue" :placeholder="placeholder" autocomplete="on">
-    <div class="flex justify-end">
-        <span class="text-xs text-red-700">{{ errors[0] }}</span>
+    <div class="flex justify-start ml-2">
+        <span class="mt-1 text-xs text-red-700">{{ errors[0] }}</span>
     </div>  
   </ValidationProvider>
 </template>

@@ -38,7 +38,10 @@ localize({
             Password: {
                 required: defaultRequired,
                 min: "Password must be at least 6 characters long",
+            },
+            "Confirm Password": {
                 confirmed: "Password and Confirm Password fields must match.",
+                required: defaultRequired,
             },
             "First Name": {
                 required: defaultRequired,

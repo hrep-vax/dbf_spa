@@ -2,7 +2,9 @@
   <div id="login" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
-        <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
+        <a href="/">
+          <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
+        </a>
         <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
         </h2>
@@ -112,6 +114,9 @@
 
           this.isLoading = false;
         },
+        gotoLandingPage() {
+          this.$router.push({path: "/"})
+        }
     }
   }
 </script>

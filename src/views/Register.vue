@@ -2,7 +2,9 @@
   <div id="register" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
-        <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
+        <a href="/">
+          <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
+        </a>
         <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">
             Register an account
         </h2>
@@ -25,11 +27,11 @@
             </div>
             <div class="mb-3">
               <label for="password" class="sr-only">Password</label>
-              <TextInput v-model="password" name="Password" rules="required|min:6|confirmed:confirmation" id="password" type="password" placeholder="Password" />
+              <TextInput v-model="password" name="Password" rules="required|min:6" id="password" vid="confirmation" type="password" placeholder="Password" />
             </div>
             <div class="mb-3">
               <label for="confirm-password" class="sr-only">Confirm Password</label>
-              <TextInput v-model="password_confirmation" name="Confirm Password" rules="required" vid="confirmation" id="confirm" type="password" placeholder="Confirm Password" />
+              <TextInput v-model="password_confirmation" name="Confirm Password" rules="required|confirmed:confirmation" id="confirm" type="password" placeholder="Confirm Password" />
             </div>
           </div>
 
