@@ -85,7 +85,13 @@
             }
 
             await this.handleRegistration(payload)
+
             this.$router.push({path: "/dashboard/home"})
+
+            Vue.$toast.open({
+                message: "Welcome, " + this.first_name + "!",
+                type: "success"
+            });
           }
           catch (error) {
             let errorMessage = ''

@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import Register from "../views/Register.vue";
 import ResetPassword from "../views/ResetPassword.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 
 import Home from "../components/Home.vue";
 import Profile from "../components/Profile.vue";
@@ -76,6 +77,12 @@ const routes = [
         name: "Register",
         component: Register,
         meta: { title: "Register" },
+    },
+    {
+        path: "*",
+        name: "PageNotFound",
+        component: PageNotFound,
+        meta: { title: "Page Not Found" },
     },
 ];
 
