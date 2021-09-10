@@ -65,7 +65,6 @@
           
           await this.handleForgotPassword(this.email)
 
-          this.$router.push({path: "/login"})
           Vue.$toast.open({
               message: "Verification message sent! Please check your email.",
               type: "success"

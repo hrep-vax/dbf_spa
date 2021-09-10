@@ -79,8 +79,9 @@
           
           await this.handleResetPassword(payload)
 
+          this.$router.push({path: "/login"})
           Vue.$toast.open({
-              message: "Your password has been reset successfully",
+              message: "Reset password successful!",
               type: "success"
           });
         }
