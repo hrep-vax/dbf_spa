@@ -27,7 +27,6 @@
                         </svg> 
                         <img v-else :src="profilePictureSrc" class="w-full h-full object-cover">
                     </span>
-                    <input type="file" id="upload_file" name="upload_file" ref="file" v-on:change="changeProfilePic()" hidden>
                     <label for="upload_file" refs="upload_file" class="flex justify-center ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg v-if="isProfilePictureLoading" class="animate-spin h-5 w-5 mx-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -35,6 +34,10 @@
                         </svg>
                         <p v-else>Change</p>
                     </label>
+                        <ValidationProvider name="Profile Picture" rules="image|size:5120" v-slot="{ errors }" ref="profilePicUpload" >
+                            <input type="file" id="upload_file" name="upload_file" ref="file" v-on:change="changeProfilePic()" accept="image/jpeg,image/png"  hidden>
+                            <span class="text-xs text-red-700 ml-2">{{ errors[0] }}</span>
+                        </ValidationProvider>
                 </div>
             </div>
         </div>
@@ -365,7 +368,7 @@
                     this.profilePictureSrc = imgURL;
                 }
                 catch (error) {
-                    console.log("[File] Profile Picture Error", error)
+                    console.log("[File] Profile Picture", error)
                     
                     /* Commented out for future enhancement*/
                     /* Error response data not available since responseType is 'blob'*/
@@ -396,7 +399,13 @@
             async changeProfilePic() {
 
                 try {
-                    this.profilePictureToUpload = this.$refs.file.files[0];
+                    const profilePicToUpload = this.$refs.file.files[0]
+
+                    /* Manual validation for the input file on click */
+                    const { valid } = await this.$refs.profilePicUpload.validate(profilePicToUpload)
+                    if (!valid) return
+                    
+                    this.profilePictureToUpload = profilePicToUpload;
                     this.isProfilePictureLoading = true;
 
                     let formData = new FormData();

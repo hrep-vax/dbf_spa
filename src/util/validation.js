@@ -12,6 +12,8 @@ import {
     min,
     alpha_spaces,
     confirmed,
+    image,
+    size,
 } from "vee-validate/dist/rules";
 
 import store from "../store";
@@ -72,6 +74,10 @@ localize({
             Region: {
                 max: "Exceeded the limit of 255 characters",
             },
+            "Profile Picture": {
+                image: "Profile picture must be an image",
+                size: "Image size must not exceed 5MB",
+            },
         },
     },
 });
@@ -83,6 +89,8 @@ extend("min", { ...min });
 extend("max", { ...max });
 extend("alpha_spaces", { ...alpha_spaces });
 extend("confirmed", { ...confirmed });
+extend("image", { ...image });
+extend("size", { ...size });
 
 //**CUSTOM RULES**
 extend("unique", {
