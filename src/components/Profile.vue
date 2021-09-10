@@ -69,7 +69,9 @@
               ref="file"
               v-on:change="changeProfilePic()"
               accept="image/jpeg,image/png"
+              :disabled="isProfilePictureLoading"
               hidden
+              class="disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <span class="text-xs text-red-700 ml-2">{{ errors[0] }}</span>
           </ValidationProvider>
@@ -347,8 +349,8 @@ export default {
       this.isLoading = false;
     },
     async submitForm() {
-        const valid = await this.$refs.profileForm.validate();
-        if (!valid) return;
+      const valid = await this.$refs.profileForm.validate();
+      if (!valid) return;
 
       try {
         this.isLoading = true;
