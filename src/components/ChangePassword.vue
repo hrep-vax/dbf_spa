@@ -143,6 +143,16 @@ export default {
           type: 'success',
         });
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
+
         console.log('error', error.response.data);
         let errorMessage = '';
         const errorCode = error.response.data.errorCode;

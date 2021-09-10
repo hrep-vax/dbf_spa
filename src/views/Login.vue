@@ -1,30 +1,11 @@
 <template>
-  <div
-    id="login"
-    class="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gray-50
-      py-12
-      px-4
-      sm:px-6
-      lg:px-8
-    "
-  >
+  <div id="login" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
         <a href="/">
-          <img
-            class="mx-auto h-20 w-auto"
-            src="../assets/logo.png"
-            alt="App Logo"
-          />
+          <img class="mx-auto h-20 w-auto" src="../assets/logo.png" alt="App Logo" />
         </a>
-        <h2 class="text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
-        </h2>
+        <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
       </div>
       <ValidationObserver ref="loginForm">
         <div class="mt-8 space-y-6">
@@ -55,21 +36,11 @@
 
           <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                class="ml-1"
-              />
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
+              <input id="remember-me" name="remember-me" type="checkbox" class="ml-1" />
+              <label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
             </div>
             <div class="text-sm">
-              <a
-                href="/forgot-password"
-                class="font-medium text-blue-600 hover:text-blue-500"
-              >
+              <a href="/forgot-password" class="font-medium text-blue-600 hover:text-blue-500">
                 Forgot your password?
               </a>
             </div>
@@ -96,27 +67,17 @@
                 text-white
                 bg-blue-600
                 hover:bg-blue-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               "
             >
               <svg
                 v-if="isLoading"
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                class="animate-spin h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path
                   class="opacity-75"
                   fill="currentColor"
@@ -132,12 +93,7 @@
               <p>Don't have an account yet?</p>
             </div>
             <div class="inline-block">
-              <a
-                href="/register"
-                class="font-medium text-blue-600 hover:text-blue-500"
-              >
-                Sign up!
-              </a>
+              <a href="/register" class="font-medium text-blue-600 hover:text-blue-500"> Sign up! </a>
             </div>
           </div>
         </div>
@@ -177,6 +133,16 @@ export default {
         await this.handleLogin({ email: this.email, password: this.password });
         this.$router.push({ path: '/dashboard/home' });
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
+
         let errorMessage = '';
         const errorCode = error.response.data.errorCode;
 

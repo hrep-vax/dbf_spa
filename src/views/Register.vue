@@ -1,30 +1,11 @@
 <template>
-  <div
-    id="register"
-    class="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gray-50
-      py-12
-      px-4
-      sm:px-6
-      lg:px-8
-    "
-  >
+  <div id="register" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
         <a href="/">
-          <img
-            class="mx-auto h-16 w-auto"
-            src="../assets/logo.png"
-            alt="App Logo"
-          />
+          <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
         </a>
-        <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">
-          Register an account
-        </h2>
+        <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">Register an account</h2>
       </div>
       <ValidationObserver ref="registrationForm">
         <div class="mt-8 space-y-6">
@@ -73,9 +54,7 @@
               />
             </div>
             <div class="mb-3">
-              <label for="confirm-password" class="sr-only"
-                >Confirm Password</label
-              >
+              <label for="confirm-password" class="sr-only">Confirm Password</label>
               <TextInput
                 v-model="password_confirmation"
                 name="Confirm Password"
@@ -108,28 +87,18 @@
                 text-white
                 bg-blue-600
                 hover:bg-blue-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                 mb-2
               "
             >
               <svg
                 v-if="isLoading"
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                class="animate-spin h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path
                   class="opacity-75"
                   fill="currentColor"
@@ -156,10 +125,7 @@
                 text-white
                 bg-blue-600
                 hover:bg-blue-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               "
             >
               Go back
@@ -220,6 +186,16 @@ export default {
           type: 'success',
         });
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
+
         let errorMessage = '';
         const errorCode = error.response.data.errorCode;
 

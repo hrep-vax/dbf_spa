@@ -53,6 +53,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Vue from 'vue';
 
 export default {
   name: 'NavBar',
@@ -68,6 +69,15 @@ export default {
         this.$router.push({ path: '/' });
       } catch (error) {
         console.log(error);
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
       }
 
       this.isLoading = false;

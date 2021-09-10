@@ -258,7 +258,7 @@
             >
               <svg
                 v-if="isLoading"
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                class="animate-spin h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -343,6 +343,16 @@ export default {
         this.city = userProfile.user.city;
         this.region = userProfile.user.region;
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
+
         console.log('[Show Profile] ', error);
       }
 
@@ -379,6 +389,16 @@ export default {
           type: 'success',
         });
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isLoading = false;
+          return;
+        }
+
         console.log('[Save Profile] ', error);
 
         if (error.response.data) {
@@ -411,6 +431,16 @@ export default {
         let imgURL = await this.handleGetUserProfilePic();
         this.profilePictureSrc = imgURL;
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isProfilePictureLoading = false;
+          return;
+        }
+
         console.log('[File] Profile Picture', error);
 
         /* Commented out for future enhancement*/
@@ -462,6 +492,16 @@ export default {
           type: 'success',
         });
       } catch (error) {
+        if (error.response.status === 429) {
+          Vue.$toast.open({
+            message: "We've recieved too many requests from you, please try again later.",
+            type: 'error',
+          });
+
+          this.isProfilePictureLoading = false;
+          return;
+        }
+
         console.log('[Change Profile Picture] ', error);
       }
       this.isProfilePictureLoading = false;
