@@ -14,11 +14,11 @@
                 </p>
               </div>
               <!-- Start Body -->
-              <div class="grid grid-cols-3 gap-6 py-5 px-6">
+              <div class="grid grid-cols-4 gap-6 py-5 px-6">
                   <label for="email" class="text-sm font-medium text-gray-700 my-auto">
                       Email
                   </label>
-                  <div class="col-span-2">
+                  <div class="col-span-3">
                       <TextInput v-model="email" name="Email" rules="required|max:255|email" id="reauth-email" type="email" placeholder="Email Address" />
                   </div>
               </div>
@@ -27,21 +27,18 @@
                       <div class="border-t border-gray-200" />
                   </div>
               </div>
-              <div class="grid grid-cols-3 gap-6 py-5 px-6">
+              <div class="grid grid-cols-4 gap-6 py-5 px-6">
 
                   <label for="password" class="text-sm font-medium text-gray-700 my-auto">
                       Password
                   </label>
-                  <div class="col-span-2">
+                  <div class="col-span-3">
                       <TextInput v-model="password" name="Password" rules="required|min:6" id="reauth-password" type="password" placeholder="Password" />
                   </div>
               </div>
               <!-- End Body -->
               <!-- Start Action Buttons -->
               <div class="flex items-center justify-end py-5 px-6 border-t border-solid border-blueGray-200 rounded-b">
-                <button class="text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-red-600 font-bold text-sm px-5 py-2 rounded outline-none focus:outline-none mr-4 ease-linear transition-all duration-150" type="button" v-on:click="closeDialog()">
-                  Close
-                </button>
                 <button type="submit" :disabled="invalid" class="disabled:opacity-50 disabled:cursor-not-allowed group relative flex py-2 px-5 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     <svg v-if="isLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -87,9 +84,6 @@
       },
       methods: {
         ...mapActions(['handleSetTokenExpirationState', 'handleLogin']),
-        closeDialog (){
-          this.handleSetTokenExpirationState(false)
-        },
         async onSubmit() {
           try {
             this.isLoading = true

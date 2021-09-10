@@ -298,7 +298,6 @@
                 }
                 catch (error) {
                     console.log("[Show Profile] ", error)
-                    console.log('hoy', error.response.data)
                 }
 
                 this.isLoading = false;
@@ -368,10 +367,12 @@
                 catch (error) {
                     console.log("[File] Profile Picture Error", error)
                     
-                    if( error.response.data ) {
+                    /* Commented out for future enhancement*/
+                    /* Error response data not available since responseType is 'blob'*/
+                    /* if( error.response.data ) {
                         let errorMessage = ''
                         const errorCode = error.response.data.errorCode
-                        console.log('hey', error.response.data)
+                        
                         switch (errorCode) {
                             case 'RESOURCE_NOT_FOUND_ERROR': {
                                 errorMessage = 'Profile Picture not found.'
@@ -387,7 +388,7 @@
                                 type: "error"
                             });
                         }
-                    }
+                    } */
                 }
 
                 this.isProfilePictureLoading = false;
