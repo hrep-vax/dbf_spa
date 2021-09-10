@@ -1,31 +1,34 @@
 <template>
   <div id="app">
     <ReauthenticateModal/>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
 <script>
 
-  import axios from 'axios'
-  import { mapActions } from 'vuex';
+import axios from 'axios'
+import {mapActions} from 'vuex';
 
-  import ReauthenticateModal from './components/ReauthenticateModal.vue'
+import ReauthenticateModal from './components/ReauthenticateModal.vue'
 
-  export default {
+export default {
 
-    name: "Login",
-    components: {
-      ReauthenticateModal
-    },
-    methods: {
-      ...mapActions(['handleSetTokenExpirationState']),
-    },
-    created() {
-      axios.interceptors.response.use(
+  name: "Login",
+  components: {
+    ReauthenticateModal
+  },
+  methods: {
+    ...mapActions(['handleSetTokenExpirationState', 'autoLogin']),
+  },
+  mounted() {
+    this.autoLogin()
+  },
+  created() {
+    axios.interceptors.response.use(
         response => response,
         error => {
-          if(  error.response ) {
+          if (error.response) {
             const errorCode = error.response.data.errorCode
 
             if (errorCode === 'UNAUTHENTICATED_ERROR') {
@@ -37,8 +40,8 @@
             return Promise.reject(error)
           }
         }
-      )
-    },
-  }
+    )
+  },
+}
 
 </script> 
