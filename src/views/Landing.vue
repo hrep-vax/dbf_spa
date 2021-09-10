@@ -11,7 +11,7 @@
         The VueJS + Tailwind.CSS starter kit for SPA projects
       </p>
       <div class="mt-5 sm:mt-8 flex justify-center">
-        <div v-if="!getUserIsAuthenticated" class="rounded-md shadow">
+        <div v-if="!getUserIsAuthenticated" class="mt-3 sm:mt-0 ml-3">
           <a
             href="/login"
             class="
@@ -34,7 +34,7 @@
             Sign In
           </a>
         </div>
-        <div v-if="!getUserIsAuthenticated" class="mt-3 sm:mt-0 sm:ml-3">
+        <div v-if="!getUserIsAuthenticated" class="mt-3 sm:mt-0 ml-3">
           <a
             href="/register"
             class="
