@@ -254,7 +254,7 @@
                 text-white
                 bg-success-darker
                 hover:bg-success
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success-darker
               "
             >
               <svg
