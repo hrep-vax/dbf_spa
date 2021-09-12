@@ -464,7 +464,7 @@ export default {
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
+            message: "We've received too many requests from you, please try again later.",
             type: 'error'
           })
           this.isProfilePictureLoading = false
