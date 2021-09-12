@@ -8,7 +8,7 @@
     </div>
     <div class="hidden sm:block" aria-hidden="true">
       <div class="py-5">
-        <div class="border-t border-gray-200" />
+        <div class="border-t border-gray-200"/>
       </div>
     </div>
     <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
@@ -18,15 +18,15 @@
           <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
             <svg v-if="!profilePictureSrc" class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
               <path
-                d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+                  d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
               />
             </svg>
-            <img v-else :src="profilePictureSrc" class="w-full h-full object-cover" />
+            <img v-else :src="profilePictureSrc" class="w-full h-full object-cover"/>
           </span>
           <label
-            for="upload_file"
-            refs="upload_file"
-            class="
+              for="upload_file"
+              refs="upload_file"
+              class="
               flex
               justify-center
               ml-5
@@ -45,32 +45,32 @@
             "
           >
             <svg
-              v-if="isProfilePictureLoading"
-              class="animate-spin h-5 w-5 mx-4 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
+                v-if="isProfilePictureLoading"
+                class="animate-spin h-5 w-5 mx-4 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
             >
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
             <p v-else>Change</p>
           </label>
           <ValidationProvider name="Profile Picture" rules="image|size:5120" v-slot="{ errors }" ref="profilePicUpload">
             <input
-              type="file"
-              id="upload_file"
-              name="upload_file"
-              ref="file"
-              v-on:change="changeProfilePic()"
-              accept="image/jpeg,image/png"
-              :disabled="isProfilePictureLoading"
-              hidden
-              class="disabled:opacity-50 disabled:cursor-not-allowed"
+                type="file"
+                id="upload_file"
+                name="upload_file"
+                ref="file"
+                v-on:change="changeProfilePic()"
+                accept="image/jpeg,image/png"
+                :disabled="isProfilePictureLoading"
+                hidden
+                class="disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <span class="text-xs text-red-700 ml-2">{{ errors[0] }}</span>
           </ValidationProvider>
@@ -79,94 +79,95 @@
     </div>
     <div class="hidden sm:block" aria-hidden="true">
       <div class="py-5">
-        <div class="border-t border-gray-200" />
+        <div class="border-t border-gray-200"/>
       </div>
     </div>
 
     <ValidationObserver ref="profileForm">
       <div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="first_name" class="text-sm font-medium text-gray-700 my-auto"> First Name* </label>
+          <label for="profile-first-name" class="text-sm font-medium text-gray-700 my-auto"> First Name* </label>
           <div class="col-span-2">
-            <TextInput v-model="first_name" name="First Name" rules="required|max:255" id="first_name" />
+            <app-text-input v-model="first_name" name="First Name" rules="required|max:255" id="profile-first-name"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="last_name" class="text-sm font-medium text-gray-700 my-auto"> Last Name* </label>
+          <label for="profile-last-name" class="text-sm font-medium text-gray-700 my-auto"> Last Name* </label>
 
           <div class="col-span-2">
-            <TextInput v-model="last_name" name="Last Name" rules="required|max:255" id="last_name" />
+            <app-text-input v-model="last_name" name="Last Name" rules="required|max:255" id="profile-last-name"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="middle_name" class="text-sm font-medium text-gray-700 my-auto"> Middle Name </label>
+          <label for="profile-middle-name" class="text-sm font-medium text-gray-700 my-auto"> Middle Name </label>
 
           <div class="col-span-2">
-            <TextInput v-model="middle_name" name="Middle Name" rules="max:255" id="middle_name" />
+            <app-text-input v-model="middle_name" name="Middle Name" rules="max:255" id="profile-middle-name"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="email" class="text-sm font-medium text-gray-700 my-auto"> Email Address* </label>
+          <label for="profile-email" class="text-sm font-medium text-gray-700 my-auto"> Email Address* </label>
 
           <div class="col-span-2">
-            <TextInput v-model="email" name="Email" rules="required|max:255|email" id="email" type="email" />
+            <app-text-input v-model="email" name="Email" rules="required|max:255|email" id="profile-email"
+                            type="email"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="birthday" class="text-sm font-medium text-gray-700 my-auto"> Birthdate </label>
+          <label for="profile-birthday" class="text-sm font-medium text-gray-700 my-auto"> Birthdate </label>
 
           <div class="col-span-2">
-            <TextInput v-model="birthday" name="Birthday" rules="valid_date" id="birthdate" placeholder="YYYY-MM-DD" />
+            <app-text-input v-model="birthday" name="Birthday" rules="valid_date" id="profile-birthday"
+                            placeholder="YYYY-MM-DD"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="mobile_number" class="text-sm font-medium text-gray-700 my-auto"> Mobile Number </label>
-
+          <label for="profile-mobile-number" class="text-sm font-medium text-gray-700 my-auto"> Mobile Number </label>
           <div class="col-span-2">
-            <TextInput
-              v-model="mobile_number"
-              name="Mobile Number"
-              rules="valid_mobile_number"
-              id="mobile_number"
-              placeholder="+639123456789"
+            <app-text-input
+                v-model="mobile_number"
+                name="Mobile Number"
+                rules="valid_mobile_number"
+                id="profile-mobile-number"
+                placeholder="+639123456789"
             />
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="sex" class="text-sm font-medium text-gray-700 my-auto"> Sex </label>
+          <label for="profile-sex" class="text-sm font-medium text-gray-700 my-auto"> Sex </label>
 
           <div class="col-span-2">
-            <select v-model="sex" name="sex" id="sex">
+            <select v-model="sex" name="sex" id="profile-sex">
               <option value=""></option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -175,70 +176,71 @@
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="home_address" class="text-sm font-medium text-gray-700 my-auto"> Home Address </label>
+          <label for="profile-home-address" class="text-sm font-medium text-gray-700 my-auto"> Home Address </label>
 
           <div class="col-span-2">
-            <TextInput v-model="home_address" name="Home Address" rules="max:255" id="home_address" />
+            <app-text-input v-model="home_address" name="Home Address" rules="max:255" id="profile-home-address"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="barangay" class="text-sm font-medium text-gray-700 my-auto"> Barangay </label>
+          <label for="profile-barangay" class="text-sm font-medium text-gray-700 my-auto"> Barangay </label>
 
           <div class="col-span-2">
-            <TextInput v-model="barangay" name="Barangay" rules="max:255" id="barangay" />
+            <app-text-input v-model="barangay" name="Barangay" rules="max:255" id="profile-barangay"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="city" class="text-sm font-medium text-gray-700 my-auto"> City </label>
+          <label for="profile-city" class="text-sm font-medium text-gray-700 my-auto"> City </label>
 
           <div class="col-span-2">
-            <TextInput v-model="city" name="City" rules="max:255" id="city" />
+            <app-text-input v-model="city" name="City" rules="max:255" id="profile-city"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="region" class="text-sm font-medium text-gray-700 my-auto"> Region </label>
+          <label for="profile-region" class="text-sm font-medium text-gray-700 my-auto"> Region </label>
 
           <div class="col-span-2">
-            <TextInput v-model="region" name="Region" rules="max:255" id="region" />
+            <app-text-input v-model="region" name="Region" rules="max:255" id="profile-region"/>
           </div>
         </div>
         <div class="hidden sm:block" aria-hidden="true">
           <div class="py-5">
-            <div class="border-t border-gray-200" />
+            <div class="border-t border-gray-200"/>
           </div>
         </div>
 
         <div class="flex items-center justify-between">
           <div class="text-sm">
-            <a href="/dashboard/change-password" class="font-medium underline text-blue-600 hover:text-blue-500">
+            <router-link :to="{name: 'change-password'}" class="font-medium underline text-blue-600 hover:text-blue-500">
               Click here to change your password
-            </a>
+            </router-link>
           </div>
           <div class="grid justify-items-end">
             <button
-              type="button"
-              :disabled="isLoading"
-              @click="submitForm"
-              class="
+                id="profile-submit-btn"
+                type="button"
+                :disabled="isLoading"
+                @click="submitForm"
+                class="
                 disabled:opacity-50 disabled:cursor-not-allowed
                 group
                 relative
@@ -256,17 +258,17 @@
               "
             >
               <svg
-                v-if="isLoading"
-                class="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
+                  v-if="isLoading"
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
               >
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
               <p v-else>Save</p>
@@ -279,17 +281,16 @@
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate';
-import Vue from 'vue';
-import TextInput from '../components/TextInput.vue';
-import { mapActions } from 'vuex';
-import { createURLFromBlob } from '../util/helper';
+import {ValidationObserver} from 'vee-validate'
+import Vue from 'vue'
+import TextInput from '../components/TextInput.vue'
+import {mapActions} from 'vuex'
+import {createURLFromBlob} from '../util/helper'
 
 export default {
-  name: 'Profile',
   components: {
     ValidationObserver,
-    TextInput,
+    appTextInput: TextInput,
   },
   data() {
     /* Data for the textboxes */
@@ -310,12 +311,12 @@ export default {
       isLoading: false,
       isProfilePictureLoading: false,
       profilePictureSrc: '',
-      profilePictureToUpload: '',
-    };
+      profilePictureToUpload: ''
+    }
   },
   async created() {
-    await this.getUserProfile();
-    await this.getUserProfilePicture();
+    await this.getUserProfile()
+    await this.getUserProfilePicture()
   },
   methods: {
     ...mapActions([
@@ -345,24 +346,23 @@ export default {
         if (error.response.status === 429) {
           Vue.$toast.open({
             message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            type: 'error'
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        console.log('[Show Profile] ', error);
       }
 
-      this.isLoading = false;
+      this.isLoading = false
     },
     async submitForm() {
-      const valid = await this.$refs.profileForm.validate();
-      if (!valid) return;
+      const valid = await this.$refs.profileForm.validate()
+      if (!valid) return
 
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
         const payload = {
           id: this.id,
@@ -376,135 +376,104 @@ export default {
           home_address: this.home_address,
           barangay: this.barangay,
           city: this.city,
-          region: this.region,
-        };
+          region: this.region
+        }
 
-        console.log('payload', payload);
-
-        await this.handleUpdateUserProfile(payload);
+        await this.handleUpdateUserProfile(payload)
 
         Vue.$toast.open({
           message: 'Updated profile saved!',
-          type: 'success',
-        });
+          type: 'success'
+        })
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
+            message: "We've received too many requests from you, please try again later.",
             type: 'error',
-          });
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        console.log('[Save Profile] ', error);
-
         if (error.response.data) {
-          let errorMessage = '';
-          const errorCode = error.response.data.errorCode;
+          let errorMessage = ''
+          const errorCode = error.response.data.errorCode
 
           switch (errorCode) {
             case 'VALIDATION_ERROR': {
-              errorMessage = 'Profile field/s format invalid';
-              break;
+              errorMessage = 'Profile field/s format invalid'
+              break
             }
             default:
-              errorMessage = 'Oops... Something went wrong on our end. ';
+              errorMessage = 'Oops... Something went wrong on our end. '
           }
 
           if (errorCode !== 'UNAUTHENTICATED_ERROR') {
             Vue.$toast.open({
               message: errorMessage,
-              type: 'error',
-            });
+              type: 'error'
+            })
           }
         }
       }
 
-      this.isLoading = false;
+      this.isLoading = false
     },
     async getUserProfilePicture() {
       try {
-        this.isProfilePictureLoading = true;
-        let imgURL = await this.handleGetUserProfilePic();
-        this.profilePictureSrc = imgURL;
+        this.isProfilePictureLoading = true
+        let imgURL = await this.handleGetUserProfilePic()
+        this.profilePictureSrc = imgURL
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            message: "We've received too many requests from you, please try again later.",
+            type: 'error'
+          })
 
-          this.isProfilePictureLoading = false;
-          return;
+          this.isProfilePictureLoading = false
+          return
         }
-
-        console.log('[File] Profile Picture', error);
-
-        /* Commented out for future enhancement*/
-        /* Error response data not available since responseType is 'blob'*/
-        /* if( error.response.data ) {
-                        let errorMessage = ''
-                        const errorCode = error.response.data.errorCode
-                        
-                        switch (errorCode) {
-                            case 'RESOURCE_NOT_FOUND_ERROR': {
-                                errorMessage = 'Profile Picture not found.'
-                                break
-                            }
-                            default:
-                                errorMessage = 'Oops... Something went wrong on our end. '
-                        }
-
-                        if( errorCode !== "UNAUTHENTICATED_ERROR") {
-                            Vue.$toast.open({
-                                message: errorMessage,
-                                type: "error"
-                            });
-                        }
-                    } */
       }
 
-      this.isProfilePictureLoading = false;
+      this.isProfilePictureLoading = false
     },
     async changeProfilePic() {
       try {
-        const profilePicToUpload = this.$refs.file.files[0];
+        const profilePicToUpload = this.$refs.file.files[0]
 
         /* Manual validation for the input file on click */
-        const { valid } = await this.$refs.profilePicUpload.validate(profilePicToUpload);
-        if (!valid) return;
+        const {valid} = await this.$refs.profilePicUpload.validate(profilePicToUpload)
+        if (!valid) return
 
-        this.profilePictureToUpload = profilePicToUpload;
-        this.isProfilePictureLoading = true;
+        this.profilePictureToUpload = profilePicToUpload
+        this.isProfilePictureLoading = true
 
-        let formData = new FormData();
-        formData.append('image', this.profilePictureToUpload);
+        let formData = new FormData()
+        formData.append('image', this.profilePictureToUpload)
 
-        await this.handleUploadUserProfilePic(formData);
+        await this.handleUploadUserProfilePic(formData)
 
-        this.profilePictureSrc = createURLFromBlob(this.profilePictureToUpload);
+        this.profilePictureSrc = createURLFromBlob(this.profilePictureToUpload)
 
         Vue.$toast.open({
           message: 'Profile picture updated successfully!',
-          type: 'success',
-        });
+          type: 'success'
+        })
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
             message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            type: 'error'
+          })
 
-          this.isProfilePictureLoading = false;
-          return;
+          this.isProfilePictureLoading = false
+          return
         }
-
-        console.log('[Change Profile Picture] ', error);
       }
-      this.isProfilePictureLoading = false;
-    },
-  },
-};
+      this.isProfilePictureLoading = false
+    }
+  }
+}
 </script>

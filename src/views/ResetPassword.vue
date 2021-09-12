@@ -2,54 +2,55 @@
   <div id="resetPassword" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
-        <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo" />
+        <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo"/>
         <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">Reset Password</h2>
       </div>
       <ValidationObserver ref="resetPasswordForm">
         <div class="mt-8">
           <div class="rounded-md">
             <div class="mb-3">
-              <label for="email-address" class="sr-only">Email address</label>
-              <TextInput
-                v-model="email"
-                name="Email"
-                rules="required|max:255|email|must_exist"
-                id="email"
-                type="email"
-                placeholder="Email Address"
+              <label for="reset-email" class="sr-only">Email address</label>
+              <app-text-input
+                  v-model="email"
+                  name="Email"
+                  rules="required|max:255|email|must_exist"
+                  id="reset-email"
+                  type="email"
+                  placeholder="Email Address"
               />
             </div>
             <div class="mb-3">
-              <label for="password" class="sr-only">Password</label>
-              <TextInput
-                v-model="password"
-                name="Password"
-                rules="required|min:6"
-                vid="confirmation"
-                id="password"
-                type="password"
-                placeholder="New Password"
+              <label for="reset-password" class="sr-only">Password</label>
+              <app-text-input
+                  v-model="password"
+                  name="Password"
+                  rules="required|min:6"
+                  vid="confirmation"
+                  id="reset-password"
+                  type="password"
+                  placeholder="New Password"
               />
             </div>
             <div class="mb-3">
-              <label for="confirm-password" class="sr-only">Confirm Password</label>
-              <TextInput
-                v-model="password_confirmation"
-                name="Confirm Password"
-                rules="required|confirmed:confirmation"
-                id="confirm"
-                type="password"
-                placeholder="Confirm New Password"
+              <label for="reset-pass-confirm" class="sr-only">Confirm Password</label>
+              <app-text-input
+                  v-model="password_confirmation"
+                  name="Confirm Password"
+                  rules="required|confirmed:confirmation"
+                  id="reset-pass-confirm"
+                  type="password"
+                  placeholder="Confirm New Password"
               />
             </div>
           </div>
 
           <div>
             <button
-              type="button"
-              @click="submitForm"
-              :disabled="isLoading"
-              class="
+                id="reset-pass-submit-btn"
+                type="button"
+                @click="submitForm"
+                :disabled="isLoading"
+                class="
                 disabled:opacity-50 disabled:cursor-not-allowed
                 group
                 relative
@@ -70,26 +71,27 @@
               "
             >
               <svg
-                v-if="isLoading"
-                class="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
+                  v-if="isLoading"
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
               >
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
               <p v-else>Submit</p>
             </button>
           </div>
           <button
-            type="button"
-            v-on:click="backToLogin"
-            class="
+              id="reset-pass-back-to-login-btn"
+              type="button"
+              v-on:click="backToLogin"
+              class="
               group
               relative
               w-full
@@ -116,83 +118,80 @@
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate';
+import {ValidationObserver} from 'vee-validate';
 import Vue from 'vue';
 import TextInput from '../components/TextInput.vue';
-import { mapActions } from 'vuex';
+import {mapActions} from 'vuex';
 
 export default {
-  name: 'ForgotPassword',
-  data() {
+  data: () => ({
     /* v-model data for textboxes */
-    return {
-      email: '',
-      password: '',
-      password_confirmation: '',
-      isLoading: false,
-    };
-  },
+    email: '',
+    password: '',
+    password_confirmation: '',
+    isLoading: false
+  }),
   components: {
-    ValidationObserver,
-    TextInput,
+    appTextInput: TextInput,
+    ValidationObserver
   },
   methods: {
     ...mapActions(['handleResetPassword']),
     async submitForm() {
-      const valid = await this.$refs.resetPasswordForm.validate();
-      if (!valid) return;
+      const valid = await this.$refs.resetPasswordForm.validate()
+      if (!valid) return
 
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
         const payload = {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          token: this.$route.query.token,
-        };
+          token: this.$route.query.token
+        }
 
-        await this.handleResetPassword(payload);
+        await this.handleResetPassword(payload)
 
-        this.$router.push({ path: '/login' });
+        this.$router.push({name: 'login'}).catch(err => err)
         Vue.$toast.open({
           message: 'Reset password successful!',
-          type: 'success',
-        });
+          type: 'success'
+        })
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            message: "We've received too many requests from you, please try again later.",
+            type: 'error'
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        let errorMessage = '';
-        const errorCode = error.response.data.errorCode;
+        let errorMessage = ''
+        const errorCode = error.response.data.errorCode
 
         switch (errorCode) {
           case 'VALIDATION_ERROR': {
-            errorMessage = 'Your email or token is invalid';
-            break;
+            errorMessage = 'Your email or token is invalid'
+            break
           }
           default:
-            errorMessage = 'Oops... Something went wrong on our end. ';
+            errorMessage = 'Oops... Something went wrong on our end. '
         }
 
         Vue.$toast.open({
           message: errorMessage,
-          type: 'error',
-        });
+          type: 'error'
+        })
       }
 
-      this.isLoading = false;
+      this.isLoading = false
     },
     backToLogin() {
-      this.$router.push({ path: '/login' });
-    },
-  },
-};
+      this.$router.push({name: 'login'})
+    }
+  }
+}
 </script>

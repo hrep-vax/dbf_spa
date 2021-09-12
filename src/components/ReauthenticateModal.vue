@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-      v-if="getTokenIsExpiredState"
-      class="
+        v-if="getTokenIsExpiredState"
+        class="
         overflow-x-hidden overflow-y-auto
         fixed
         inset-0
@@ -16,10 +16,10 @@
     >
       <div class="relative mx-auto max-w-xl w-full">
         <!--Start Content-->
-        <ValidationObserver v-slot="{ invalid }">
+        <ValidationObserver ref="reauthForm">
           <form @submit.prevent="onSubmit" class="mt-8">
             <div
-              class="
+                class="
                 border-0
                 rounded-lg
                 shadow-lg
@@ -38,33 +38,33 @@
               </div>
               <!-- Start Body -->
               <div class="grid grid-cols-4 gap-6 py-5 px-6">
-                <label for="email" class="text-sm font-medium text-gray-700 my-auto"> Email </label>
+                <label for="reauth-email" class="text-sm font-medium text-gray-700 my-auto"> Email </label>
                 <div class="col-span-3">
-                  <TextInput
-                    v-model="email"
-                    name="Email"
-                    rules="required|max:255|email"
-                    id="reauth-email"
-                    type="email"
-                    placeholder="Email Address"
+                  <app-text-input
+                      v-model="email"
+                      name="Email"
+                      rules="required|max:255|email"
+                      id="reauth-email"
+                      type="email"
+                      placeholder="Email Address"
                   />
                 </div>
               </div>
               <div class="hidden sm:block" aria-hidden="true">
                 <div class="">
-                  <div class="border-t border-gray-200" />
+                  <div class="border-t border-gray-200"/>
                 </div>
               </div>
               <div class="grid grid-cols-4 gap-6 py-5 px-6">
-                <label for="password" class="text-sm font-medium text-gray-700 my-auto"> Password </label>
+                <label for="reauth-password" class="text-sm font-medium text-gray-700 my-auto"> Password </label>
                 <div class="col-span-3">
-                  <TextInput
-                    v-model="password"
-                    name="Password"
-                    rules="required|min:6"
-                    id="reauth-password"
-                    type="password"
-                    placeholder="Password"
+                  <app-text-input
+                      v-model="password"
+                      name="Password"
+                      rules="required|min:6"
+                      id="reauth-password"
+                      type="password"
+                      placeholder="Password"
                   />
                 </div>
               </div>
@@ -72,9 +72,10 @@
               <!-- Start Action Buttons -->
               <div class="flex items-center justify-end py-5 px-6 border-t border-solid border-blueGray-200 rounded-b">
                 <button
-                  type="submit"
-                  :disabled="invalid"
-                  class="
+                    id="reauth-submit-btn"
+                    type="submit"
+                    :disabled="isLoading"
+                    class="
                     disabled:opacity-50 disabled:cursor-not-allowed
                     group
                     relative
@@ -92,17 +93,17 @@
                   "
                 >
                   <svg
-                    v-if="isLoading"
-                    class="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
+                      v-if="isLoading"
+                      class="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
                   >
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
                   <p v-else>Sign In</p>
@@ -120,68 +121,70 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ValidationObserver } from 'vee-validate';
-import TextInput from './TextInput.vue';
-import Vue from 'vue';
+import {mapGetters, mapActions} from 'vuex'
+import {ValidationObserver} from 'vee-validate'
+import TextInput from './TextInput.vue'
+import Vue from 'vue'
 
 export default {
-  name: 'ReauthenticateModal',
   data() {
     return {
       showModal: false,
       isLoading: false,
       email: '',
-      password: '',
-    };
+      password: ''
+    }
   },
   components: {
     ValidationObserver,
-    TextInput,
+    appTextInput: TextInput
   },
   computed: {
-    ...mapGetters(['getTokenIsExpiredState']),
+    ...mapGetters(['getTokenIsExpiredState'])
   },
   methods: {
     ...mapActions(['handleSetTokenExpirationState', 'handleLogin']),
     async onSubmit() {
       try {
-        this.isLoading = true;
+        const valid = await this.$refs.reauthForm.validate()
+        if (!valid) return
 
-        await this.handleLogin({ email: this.email, password: this.password });
-        this.handleSetTokenExpirationState(false);
+        this.isLoading = true
+
+        await this.handleLogin({email: this.email, password: this.password})
+        this.handleSetTokenExpirationState(false)
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            message: "We've received too many requests from you, please try again later.",
+            type: 'error'
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        let errorMessage = '';
-        const errorCode = error.response.data.errorCode;
+        let errorMessage = ''
+        const errorCode = error.response.data.errorCode
 
         switch (errorCode) {
           case 'VALIDATION_ERROR':
           case 'INVALID_CREDENTIALS_ERROR': {
-            errorMessage = 'Incorrect email or password';
-            break;
+            errorMessage = 'Incorrect email or password'
+            break
           }
           default:
-            errorMessage = 'Oops... Something went wrong on our end. ';
+            errorMessage = 'Oops... Something went wrong on our end. '
         }
 
         Vue.$toast.open({
           message: errorMessage,
-          type: 'error',
-        });
+          type: 'error'
+        })
       }
 
-      this.isLoading = false;
-    },
-  },
-};
+      this.isLoading = false
+    }
+  }
+}
 </script>

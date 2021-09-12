@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ReauthenticateModal/>
+    <app-reauthenticate-modal/>
     <router-view/>
   </div>
 </template>
@@ -8,21 +8,15 @@
 <script>
 
 import axios from 'axios'
-import {mapActions} from 'vuex';
-
 import ReauthenticateModal from './components/ReauthenticateModal.vue'
+import {mapActions} from 'vuex'
 
 export default {
-
-  name: "Login",
   components: {
-    ReauthenticateModal
+    appReauthenticateModal: ReauthenticateModal
   },
   methods: {
-    ...mapActions(['handleSetTokenExpirationState', 'autoLogin']),
-  },
-  mounted() {
-    this.autoLogin()
+    ...mapActions(['handleSetTokenExpirationState'])
   },
   created() {
     axios.interceptors.response.use(
@@ -41,7 +35,7 @@ export default {
           }
         }
     )
-  },
+  }
 }
 
 </script> 

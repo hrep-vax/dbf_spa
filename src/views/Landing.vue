@@ -11,9 +11,10 @@
         The VueJS + Tailwind.CSS starter kit for SPA projects
       </p>
       <div class="mt-5 sm:mt-8 flex justify-center">
-        <div v-if="!getUserIsAuthenticated" class="mt-3 sm:mt-0 ml-3">
-          <a
-            href="/login"
+        <div class="mt-3 sm:mt-0 ml-3">
+          <router-link
+            :to="{name: 'login'}"
+            id="landing-login-btn"
             class="
               w-full
               flex
@@ -32,11 +33,12 @@
             "
           >
             Sign In
-          </a>
+          </router-link>
         </div>
-        <div v-if="!getUserIsAuthenticated" class="mt-3 sm:mt-0 ml-3">
-          <a
-            href="/register"
+        <div class="mt-3 sm:mt-0 ml-3">
+          <router-link
+            :to="{name: 'register'}"
+            id="landing-register-btn"
             class="
               w-full
               flex
@@ -55,62 +57,9 @@
             "
           >
             Sign Up
-          </a>
-        </div>
-        <div v-if="getUserIsAuthenticated" class="mt-3 sm:mt-0 sm:ml-3">
-          <a
-            href="/dashboard/home"
-            class="
-              w-full
-              flex
-              items-center
-              justify-center
-              px-8
-              py-3
-              border border-transparent
-              text-base
-              font-medium
-              rounded-md
-              text-blue-600
-              bg-blue-100
-              hover:bg-blue-200
-              md:py-4 md:text-lg md:px-10
-            "
-          >
-            Go to Home Page
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
   </main>
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-];
-
-export default {
-  components: {},
-  setup() {
-    return {
-      navigation,
-    };
-  },
-  computed: {
-    ...mapGetters(['getUserIsAuthenticated', 'getAuthUser']),
-  },
-  methods: {
-    gotoRegister() {
-      this.$router.push({ path: '/register' });
-    },
-    gotoLogin() {
-      this.$router.push({ path: '/login' });
-    },
-  },
-};
-</script>

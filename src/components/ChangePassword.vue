@@ -10,7 +10,7 @@
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="old_password" class="text-sm font-medium text-gray-700 my-auto"> Current Password </label>
           <div class="col-span-2">
-            <TextInput
+            <app-text-input
               v-model="old_password"
               name="Password"
               rules="required|min:6"
@@ -27,7 +27,7 @@
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
           <label for="password" class="text-sm font-medium text-gray-700 my-auto"> New Password </label>
           <div class="col-span-2">
-            <TextInput
+            <app-text-input
               v-model="password"
               name="Password"
               rules="required|min:6"
@@ -44,9 +44,9 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="confim" class="text-sm font-medium text-gray-700 my-auto"> Confirm Password </label>
+          <label for="confirm" class="text-sm font-medium text-gray-700 my-auto"> Confirm Password </label>
           <div class="col-span-2">
-            <TextInput
+            <app-text-input
               v-model="password_confirmation"
               name="Confirm Password"
               rules="required|confirmed:confirmation"
@@ -101,16 +101,15 @@
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate';
-import Vue from 'vue';
-import TextInput from '../components/TextInput.vue';
-import { mapActions } from 'vuex';
+import { ValidationObserver } from 'vee-validate'
+import Vue from 'vue'
+import TextInput from '../components/TextInput.vue'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'ChangePassword',
   components: {
     ValidationObserver,
-    TextInput,
+    appTextInput: TextInput
   },
   data() {
     /* v-model data for textboxes */
@@ -118,66 +117,66 @@ export default {
       old_password: '',
       password: '',
       password_confirmation: '',
-      isLoading: false,
+      isLoading: false
     };
   },
   methods: {
     ...mapActions(['handleChangePassword']),
     async submitForm() {
-      const valid = await this.$refs.changePasswordForm.validate();
-      if (!valid) return;
+      const valid = await this.$refs.changePasswordForm.validate()
+      if (!valid) return
 
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
         const payload = {
           old_password: this.old_password,
           password: this.password,
-          password_confirmation: this.password_confirmation,
-        };
+          password_confirmation: this.password_confirmation
+        }
 
-        await this.handleChangePassword(payload);
+        await this.handleChangePassword(payload)
 
         Vue.$toast.open({
           message: 'Your password has been changed successfully!',
-          type: 'success',
+          type: 'success'
         });
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
             message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            type: 'error'
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        console.log('error', error.response.data);
-        let errorMessage = '';
-        const errorCode = error.response.data.errorCode;
+        console.log('error', error.response.data)
+        let errorMessage = ''
+        const errorCode = error.response.data.errorCode
 
         switch (errorCode) {
           case 'VALIDATION_ERROR': {
-            errorMessage = 'Current password is incorrect';
-            break;
+            errorMessage = 'Current password is incorrect'
+            break
           }
           case 'UNAUTHENTICATED_ERROR': {
-            errorMessage = 'Session is expired';
-            break;
+            errorMessage = 'Session is expired'
+            break
           }
           default:
-            errorMessage = 'Oops... Something went wrong on our end.';
+            errorMessage = 'Oops... Something went wrong on our end.'
         }
 
         Vue.$toast.open({
           message: errorMessage,
-          type: 'error',
-        });
+          type: 'error'
+        })
       }
 
-      this.isLoading = false;
-    },
-  },
-};
+      this.isLoading = false
+    }
+  }
+}
 </script>

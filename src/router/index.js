@@ -19,88 +19,89 @@ const DEFAULT_WINDOW_TITLE = 'Web App Kit';
 const routes = [
   {
     path: '/',
-    name: 'Landing',
+    name: 'landing',
     component: Landing,
-    meta: { title: 'Welcome!', requiresNoAuth: true },
+    meta: { title: 'Welcome!', requiresNoAuth: true }
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login,
-    meta: { title: 'Login', requiresNoAuth: true },
+    meta: { title: 'Login', requiresNoAuth: true }
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: Dashboard,
     redirect: { path: 'dashboard/home' },
     meta: { title: 'Dashboard', requiresAuth: true },
     children: [
       {
         path: 'home',
+        name: 'home',
         component: Home,
         meta: { title: 'Home', requiresAuth: true },
       },
       {
         path: 'profile',
+        name: 'profile',
         component: Profile,
         meta: { title: 'Profile', requiresAuth: true },
       },
       {
         path: 'change-password',
+        name: 'change-password',
         component: ChangePassword,
         meta: { title: 'Change Password', requiresAuth: true },
-      },
-    ],
+      }
+    ]
   },
   {
     path: '/forgot-password',
-    name: 'ForgotPassword',
+    name: 'forgot-password',
     component: ForgotPassword,
-    meta: { title: 'Forgot Password', requiresNoAuth: true },
+    meta: { title: 'Forgot Password', requiresNoAuth: true }
   },
   {
     path: '/auth/reset-password',
-    name: 'ResetPassword',
+    name: 'reset-password',
     component: ResetPassword,
-    meta: { title: 'Reset Password', requiresNoAuth: true },
+    meta: { title: 'Reset Password', requiresNoAuth: true }
   },
   {
     path: '/register',
-    name: 'Register',
+    name: 'register',
     component: Register,
-    meta: { title: 'Register', requiresNoAuth: true },
+    meta: { title: 'Register', requiresNoAuth: true }
   },
   {
     path: '*',
-    name: 'PageNotFound',
+    name: 'page-not-found',
     component: PageNotFound,
-    meta: { title: 'Page Not Found' },
+    meta: { title: 'Page Not Found' }
   },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
-  routes,
+  routes
 });
 
 /* change the window title with the title name of the destination route */
 router.afterEach((to) => {
-  document.title = to.meta.title || DEFAULT_WINDOW_TITLE;
+  document.title = to.meta.title || DEFAULT_WINDOW_TITLE
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticatedUser = localStorage.getItem('WEB_APP_KIT_TOKEN')
-    ? true
-    : false;
+  const isAuthenticatedUser = !!localStorage.getItem('WEB_APP_KIT_TOKEN')
 
   // check for protected route
   // if route requires authentication and the user is not authenticated , redirect to the login route
-  if (to.meta.requiresAuth && !isAuthenticatedUser) next({ name: 'Login' });
+  if (to.meta.requiresAuth && !isAuthenticatedUser) next({ name: 'login' })
   if (to.meta.requiresNoAuth && isAuthenticatedUser)
-    next({ name: 'Dashboard' });
-  else next();
+    next({ name: 'dashboard' })
+  else next()
 });
 
-export default router;
+export default router

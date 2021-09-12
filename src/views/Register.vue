@@ -11,55 +11,55 @@
         <div class="mt-8 space-y-6">
           <div class="rounded-md">
             <div class="mb-3">
-              <label for="email-address" class="sr-only">Email address</label>
-              <TextInput
+              <label for="register-email" class="sr-only">Email address</label>
+              <app-text-input
                 v-model="email"
                 name="Email"
                 rules="required|max:255|email|unique"
-                id="email"
+                id="register-email"
                 type="email"
                 placeholder="Email Address"
               />
             </div>
             <div class="mb-3">
-              <label for="first-name" class="sr-only">First Name</label>
-              <TextInput
+              <label for="register-first-name" class="sr-only">First Name</label>
+              <app-text-input
                 v-model="first_name"
                 name="First Name"
                 rules="required|max:255"
-                id="first-name"
+                id="register-first-name"
                 placeholder="First Name"
               />
             </div>
             <div class="mb-3">
-              <label for="last-name" class="sr-only">Last Name</label>
-              <TextInput
+              <label for="register-last-name" class="sr-only">Last Name</label>
+              <app-text-input
                 v-model="last_name"
                 name="Last Name"
                 rules="required|max:255"
-                id="last-name"
+                id="register-last-name"
                 placeholder="Last Name"
               />
             </div>
             <div class="mb-3">
-              <label for="password" class="sr-only">Password</label>
-              <TextInput
+              <label for="register-password" class="sr-only">Password</label>
+              <app-text-input
                 v-model="password"
                 name="Password"
                 rules="required|min:6"
-                id="password"
+                id="register-password"
                 vid="confirmation"
                 type="password"
                 placeholder="Password"
               />
             </div>
             <div class="mb-3">
-              <label for="confirm-password" class="sr-only">Confirm Password</label>
-              <TextInput
+              <label for="register-confirm-password" class="sr-only">Confirm Password</label>
+              <app-text-input
                 v-model="password_confirmation"
                 name="Confirm Password"
                 rules="required|confirmed:confirmation"
-                id="confirm"
+                id="register-confirm-password"
                 type="password"
                 placeholder="Confirm Password"
               />
@@ -69,6 +69,7 @@
           <div>
             <button
               type="button"
+              id="register-submit-btn"
               @click="submitForm"
               :disabled="isLoading"
               class="
@@ -147,7 +148,7 @@ export default {
   name: 'Register',
   components: {
     ValidationObserver,
-    TextInput,
+    appTextInput: TextInput
   },
   data() {
     /* v-model data for textboxes */
@@ -157,71 +158,69 @@ export default {
       last_name: '',
       password: '',
       password_confirmation: '',
-      isLoading: false,
-    };
+      isLoading: false
+    }
   },
   methods: {
     ...mapActions(['handleRegistration']),
     async submitForm() {
-      const valid = await this.$refs.registrationForm.validate();
-      if (!valid) return;
+      const valid = await this.$refs.registrationForm.validate()
+      if (!valid) return
 
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
         const payload = {
           email: this.email,
           first_name: this.first_name,
           last_name: this.last_name,
           password: this.password,
-          password_confirmation: this.password_confirmation,
-        };
+          password_confirmation: this.password_confirmation
+        }
 
-        await this.handleRegistration(payload);
+        await this.handleRegistration(payload)
 
-        this.$router.push({ path: '/dashboard/home' });
+        this.$router.push({ name: 'home' }).catch(err => err)
 
         Vue.$toast.open({
           message: 'Welcome, ' + this.first_name + '!',
           type: 'success',
-        });
+        })
       } catch (error) {
         if (error.response.status === 429) {
           Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error',
-          });
+            message: "We've received too many requests from you, please try again later.",
+            type: 'error'
+          })
 
-          this.isLoading = false;
-          return;
+          this.isLoading = false
+          return
         }
 
-        let errorMessage = '';
-        const errorCode = error.response.data.errorCode;
-
-        console.log('error', error.response.data);
+        let errorMessage = ''
+        const errorCode = error.response.data.errorCode
 
         switch (errorCode) {
           case 'VALIDATION_ERROR': {
-            errorMessage = 'Invalid email/password';
-            break;
+            errorMessage = 'Invalid email/password'
+            break
           }
           default:
-            errorMessage = 'Oops... Something went wrong on our end.';
+            errorMessage = 'Oops... Something went wrong on our end.'
         }
 
         Vue.$toast.open({
           message: errorMessage,
-          type: 'error',
-        });
+          type: 'error'
+        })
       }
 
-      this.isLoading = false;
+      this.isLoading = false
     },
 
     backToLogin() {
-      this.$router.push({ path: '/login' });
-    },
-  },
-};
+      this.$router.push({ name: 'login' })
+    }
+  }
+}
 </script>
