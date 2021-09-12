@@ -3,6 +3,7 @@ The VueJS + Tailwind.CSS starter kit for SPA projects.
 
 ## Project setup
 - Run `npm install` to download and install Javascript dependencies
+- Run `npm build:css` to initialize Tailwind's CSS configuration. Run this command everytime you make changes to tailwind.config
 - Create a `.env.development.local` from the `.env` file. Point the `VUE_APP_API_URL` variable to your local or remote API server
 
 ### Compiles and hot-reloads for development
