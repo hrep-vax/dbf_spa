@@ -3,7 +3,7 @@
     <div class="max-w-md w-full space-y-8">
       <div>
         <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo"/>
-        <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">Reset Password</h2>
+        <h2 class="mt-4 text-center text-3xl font-extrabold text-message">Reset Password</h2>
       </div>
       <ValidationObserver ref="resetPasswordForm">
         <div class="mt-8">
