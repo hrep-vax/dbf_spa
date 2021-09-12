@@ -467,9 +467,12 @@ export default {
             message: "We've recieved too many requests from you, please try again later.",
             type: 'error'
           })
-
           this.isProfilePictureLoading = false
-          return
+        } else if (error.response.data.errorCode === 'VALIDATION_ERROR') {
+          Vue.$toast.open({
+            message: error.response.data.message,
+            type: 'error'
+          })
         }
       }
       this.isProfilePictureLoading = false
