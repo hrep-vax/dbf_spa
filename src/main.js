@@ -1,24 +1,24 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "./assets/tailwind.css";
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import './assets/compiled-tailwind.css'
 
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
-import './util/validation';
+import './util/validation'
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* toast initial configuration */
 Vue.use(VueToast, {
-  position: "top",
-  dimissible: "true",
+  position: 'top',
+  dimissible: 'true'
 });
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
-}).$mount("#app");
+  render: (h) => h(App)
+}).$mount('#app')
