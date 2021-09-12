@@ -1,14 +1,14 @@
 <template>
-  <header class="text-gray-600 body-font">
+  <header class="text-message body-font">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <div class="flex title-font font-medium items-center text-message mb-4 md:mb-0">
         <router-link :to="{name: 'home'}">
           <img class="mx-auto h-11 w-auto" src="../assets/logo.png" alt="App Logo"/>
         </router-link>
       </div>
       <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 flex flex-wrap items-center text-base justify-center">
-        <router-link class="mr-5 hover:text-gray-900 hover:underline" :to="{name: 'home'}">Home</router-link>
-        <router-link class="mr-5 hover:text-gray-900 hover:underline" :to="{name: 'profile'}">Profile</router-link>
+        <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'home'}">Home</router-link>
+        <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'profile'}">Profile</router-link>
       </nav>
       <button
           id="logout-btn"
@@ -19,7 +19,7 @@
           disabled:opacity-50 disabled:cursor-not-allowed
           inline-flex
           items-center
-          bg-gray-100
+          bg-gay-100
           border-0
           py-2
           px-4

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build:css": "npx tailwindcss build src/assets/tailwind.css -o src/assets/compiled-tailwind.css"
+    "build:css": "npx tailwindcss -i ./src/assets/tailwind.css -o ./src/assets/compiled-tailwind.css"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",

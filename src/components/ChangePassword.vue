@@ -2,13 +2,13 @@
   <div class="changePassword mt-14 mx-auto border max-w-3xl rounded-xl shadow-lg overflow-hidden p-8">
     <div class="md:col-span-1 mb-10">
       <div class="sm:px-0">
-        <h3 class="text-xl font-semibold leading-6 text-gray-900 font">Change Password</h3>
+        <h3 class="text-xl font-semibold leading-6 text-message font">Change Password</h3>
       </div>
     </div>
     <ValidationObserver ref="changePasswordForm">
       <div class="mt-8">
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="old_password" class="text-sm font-medium text-gray-700 my-auto"> Current Password </label>
+          <label for="old_password" class="text-sm font-medium text-message my-auto"> Current Password </label>
           <div class="col-span-2">
             <app-text-input
               v-model="old_password"
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="password" class="text-sm font-medium text-gray-700 my-auto"> New Password </label>
+          <label for="password" class="text-sm font-medium text-message my-auto"> New Password </label>
           <div class="col-span-2">
             <app-text-input
               v-model="password"
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="confirm" class="text-sm font-medium text-gray-700 my-auto"> Confirm Password </label>
+          <label for="confirm" class="text-sm font-medium text-message my-auto"> Confirm Password </label>
           <div class="col-span-2">
             <app-text-input
               v-model="password_confirmation"
@@ -73,9 +73,9 @@
               font-medium
               rounded-md
               text-white
-              bg-blue-600
-              hover:bg-blue-700
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+              bg-primary
+              hover:bg-primary-darker
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-soft
             "
           >
             <svg

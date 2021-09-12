@@ -3,7 +3,7 @@
     <div class="max-w-md w-full space-y-8">
       <div>
         <img class="mx-auto h-16 w-auto" src="../assets/logo.png" alt="App Logo"/>
-        <h2 class="mt-4 text-center text-3xl font-extrabold text-gray-900">Forgot your password?</h2>
+        <h2 class="mt-4 text-center text-3xl font-extrabold text-message">Forgot your password?</h2>
       </div>
 
       <ValidationObserver ref="forgotPasswordForm">
@@ -43,9 +43,9 @@
                 font-medium
                 rounded-md
                 text-white
-                bg-blue-600
-                hover:bg-blue-700
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                bg-primary
+                hover:bg-primary-darker
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
                 mb-2
               "
             >
@@ -83,8 +83,9 @@
                 font-medium
                 rounded-md
                 text-white
-                bg-blue-600
-                hover:bg-blue-700
+                bg-gray-400
+                hover:bg-gray-300
+                hover:text-message
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               "
             >

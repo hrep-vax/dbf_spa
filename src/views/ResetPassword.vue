@@ -64,9 +64,9 @@
                 font-medium
                 rounded-md
                 text-white
-                bg-blue-600
-                hover:bg-blue-700
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                bg-primary
+                hover:bg-primary-darker
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-soft
                 mb-2
               "
             >
@@ -104,9 +104,10 @@
               font-medium
               rounded-md
               text-white
-              bg-blue-600
-              hover:bg-blue-700
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+              bg-gray-400
+              hover:bg-gray-300
+              hover:text-message
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-soft
             "
           >
             Go to Login

@@ -2,8 +2,8 @@
   <div class="profile mt-4 sm:mt-14 mb-8 mx-auto border max-w-4xl rounded-xl shadow-lg overflow-hidden p-8">
     <div class="md:col-span-1">
       <div class="mb-5 sm:mb-0">
-        <h3 class="text-xl font-semibold leading-6 text-gray-900 font">Profile</h3>
-        <p class="mt-1 text-md text-gray-600">This information is your profile information.</p>
+        <h3 class="text-xl font-semibold leading-6 text-message font">Profile</h3>
+        <p class="mt-1 text-md text-message-lighter">This information is your profile information.</p>
       </div>
     </div>
     <div class="hidden sm:block" aria-hidden="true">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-      <label class="text-sm font-medium text-gray-700 my-auto"> Profile Picture </label>
+      <label class="text-sm font-medium text-message my-auto"> Profile Picture </label>
       <div class="col-span-2">
         <div class="flex items-center">
           <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
@@ -39,9 +39,9 @@
               text-sm
               leading-4
               font-medium
-              text-gray-700
+              text-message
               hover:bg-gray-50
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
             "
           >
             <svg
@@ -72,7 +72,7 @@
                 hidden
                 class="disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            <span class="text-xs text-red-700 ml-2">{{ errors[0] }}</span>
+            <span class="text-xs text-danger ml-2">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
       </div>
@@ -86,7 +86,7 @@
     <ValidationObserver ref="profileForm">
       <div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-first-name" class="text-sm font-medium text-gray-700 my-auto"> First Name* </label>
+          <label for="profile-first-name" class="text-sm font-medium text-message my-auto"> First Name* </label>
           <div class="col-span-2">
             <app-text-input v-model="first_name" name="First Name" rules="required|max:255" id="profile-first-name"/>
           </div>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-last-name" class="text-sm font-medium text-gray-700 my-auto"> Last Name* </label>
+          <label for="profile-last-name" class="text-sm font-medium text-message my-auto"> Last Name* </label>
 
           <div class="col-span-2">
             <app-text-input v-model="last_name" name="Last Name" rules="required|max:255" id="profile-last-name"/>
@@ -109,7 +109,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-middle-name" class="text-sm font-medium text-gray-700 my-auto"> Middle Name </label>
+          <label for="profile-middle-name" class="text-sm font-medium text-message my-auto"> Middle Name </label>
 
           <div class="col-span-2">
             <app-text-input v-model="middle_name" name="Middle Name" rules="max:255" id="profile-middle-name"/>
@@ -121,7 +121,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-email" class="text-sm font-medium text-gray-700 my-auto"> Email Address* </label>
+          <label for="profile-email" class="text-sm font-medium text-message my-auto"> Email Address* </label>
 
           <div class="col-span-2">
             <app-text-input v-model="email" name="Email" rules="required|max:255|email" id="profile-email"
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-birthday" class="text-sm font-medium text-gray-700 my-auto"> Birthdate </label>
+          <label for="profile-birthday" class="text-sm font-medium text-message my-auto"> Birthdate </label>
 
           <div class="col-span-2">
             <app-text-input v-model="birthday" name="Birthday" rules="valid_date" id="profile-birthday"
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-mobile-number" class="text-sm font-medium text-gray-700 my-auto"> Mobile Number </label>
+          <label for="profile-mobile-number" class="text-sm font-medium text-message my-auto"> Mobile Number </label>
           <div class="col-span-2">
             <app-text-input
                 v-model="mobile_number"
@@ -164,7 +164,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-sex" class="text-sm font-medium text-gray-700 my-auto"> Sex </label>
+          <label for="profile-sex" class="text-sm font-medium text-message my-auto"> Sex </label>
 
           <div class="col-span-2">
             <select v-model="sex" name="sex" id="profile-sex">
@@ -180,7 +180,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-home-address" class="text-sm font-medium text-gray-700 my-auto"> Home Address </label>
+          <label for="profile-home-address" class="text-sm font-medium text-message my-auto"> Home Address </label>
 
           <div class="col-span-2">
             <app-text-input v-model="home_address" name="Home Address" rules="max:255" id="profile-home-address"/>
@@ -192,7 +192,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-barangay" class="text-sm font-medium text-gray-700 my-auto"> Barangay </label>
+          <label for="profile-barangay" class="text-sm font-medium text-message my-auto"> Barangay </label>
 
           <div class="col-span-2">
             <app-text-input v-model="barangay" name="Barangay" rules="max:255" id="profile-barangay"/>
@@ -204,7 +204,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-city" class="text-sm font-medium text-gray-700 my-auto"> City </label>
+          <label for="profile-city" class="text-sm font-medium text-message my-auto"> City </label>
 
           <div class="col-span-2">
             <app-text-input v-model="city" name="City" rules="max:255" id="profile-city"/>
@@ -216,7 +216,7 @@
           </div>
         </div>
         <div class="grid grid-cols-3 gap-6 mb-4 sm:mb-0">
-          <label for="profile-region" class="text-sm font-medium text-gray-700 my-auto"> Region </label>
+          <label for="profile-region" class="text-sm font-medium text-message my-auto"> Region </label>
 
           <div class="col-span-2">
             <app-text-input v-model="region" name="Region" rules="max:255" id="profile-region"/>
@@ -230,7 +230,7 @@
 
         <div class="flex items-center justify-between">
           <div class="text-sm">
-            <router-link :to="{name: 'change-password'}" class="font-medium underline text-blue-600 hover:text-blue-500">
+            <router-link :to="{name: 'change-password'}" class="font-medium underline text-primary hover:text-primary-darker">
               Click here to change your password
             </router-link>
           </div>
@@ -252,8 +252,8 @@
                 font-medium
                 rounded-md
                 text-white
-                bg-blue-600
-                hover:bg-blue-700
+                bg-success-darker
+                hover:bg-success
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               "
             >

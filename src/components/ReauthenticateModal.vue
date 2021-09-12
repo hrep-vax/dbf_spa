@@ -33,12 +33,12 @@
             >
               <!--header-->
               <div class="py-5 px-6 border-b border-solid border-blueGray-200 rounded-t">
-                <h3 class="text-xl font-semibold leading-6 text-gray-900 font">Login Session Expired</h3>
-                <p class="mt-1 text-sm text-gray-600">Please login to continue your session</p>
+                <h3 class="text-xl font-semibold leading-6 text-message-darker font">Login Session Expired</h3>
+                <p class="mt-1 text-sm text-message">Please login to continue your session</p>
               </div>
               <!-- Start Body -->
               <div class="grid grid-cols-4 gap-6 py-5 px-6">
-                <label for="reauth-email" class="text-sm font-medium text-gray-700 my-auto"> Email </label>
+                <label for="reauth-email" class="text-sm font-medium text-message my-auto"> Email </label>
                 <div class="col-span-3">
                   <app-text-input
                       v-model="email"
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="grid grid-cols-4 gap-6 py-5 px-6">
-                <label for="reauth-password" class="text-sm font-medium text-gray-700 my-auto"> Password </label>
+                <label for="reauth-password" class="text-sm font-medium text-message my-auto"> Password </label>
                 <div class="col-span-3">
                   <app-text-input
                       v-model="password"
@@ -70,7 +70,7 @@
               </div>
               <!-- End Body -->
               <!-- Start Action Buttons -->
-              <div class="flex items-center justify-end py-5 px-6 border-t border-solid border-blueGray-200 rounded-b">
+              <div class="flex items-center justify-end py-5 px-6 border-t border-solid border-primary-soft rounded-b">
                 <button
                     id="reauth-submit-btn"
                     type="submit"
@@ -87,8 +87,8 @@
                     font-medium
                     rounded-md
                     text-white
-                    bg-blue-600
-                    hover:bg-blue-700
+                    bg-primary
+                    hover:bg-primary-darker
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                   "
                 >

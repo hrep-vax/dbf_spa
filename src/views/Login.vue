@@ -5,7 +5,7 @@
         <router-link :to="{name: 'landing'}" id="login-landing-link">
           <img class="mx-auto h-20 w-auto" src="../assets/logo.png" alt="App Logo"/>
         </router-link>
-        <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+        <h2 class="text-center text-3xl font-extrabold text-message">Sign in to your account</h2>
       </div>
       <ValidationObserver ref="loginForm">
         <div class="mt-8 space-y-6">
@@ -37,10 +37,10 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               <input id="remember-me" name="remember-me" type="checkbox" class="ml-1"/>
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
+              <label for="remember-me" class="ml-2 block text-sm text-message"> Remember me </label>
             </div>
             <div class="text-sm">
-              <router-link :to="{name: 'forgot-password'}" class="font-medium text-blue-600 hover:text-blue-500">
+              <router-link :to="{name: 'forgot-password'}" class="font-medium text-primary hover:text-primary-darker">
                 Forgot your password?
               </router-link>
             </div>
@@ -48,6 +48,7 @@
 
           <div>
             <button
+                id="login-btn"
                 type="button"
                 @click="submitForm"
                 :disabled="isLoading"
@@ -65,8 +66,8 @@
                 font-medium
                 rounded-md
                 text-white
-                bg-blue-600
-                hover:bg-blue-700
+                bg-primary
+                hover:bg-primary-darker
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               "
             >
@@ -88,12 +89,12 @@
             </button>
           </div>
 
-          <div class="text-sm text-center space-x-1">
+          <div class="text-sm text-center space-x-1 text-message">
             <div class="inline-block">
               <p>Don't have an account yet?</p>
             </div>
             <div class="inline-block">
-              <router-link :to="{name: 'register'}" class="font-medium text-blue-600 hover:text-blue-500"> Sign up!
+              <router-link :to="{name: 'register'}" class="font-medium text-primary hover:text-primary-darker"> Sign up!
               </router-link>
             </div>
           </div>
