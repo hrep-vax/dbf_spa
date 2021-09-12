@@ -20,10 +20,10 @@
     [multiple],
     textarea,
     select {
-        @apply w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm h-11;
+        @apply w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm h-11;
     }
     [type="checkbox"],
     [type="radio"] {
-        @apply h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+        @apply h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded;
     }
 }
