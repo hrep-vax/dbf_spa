@@ -109,6 +109,7 @@ import Vue from 'vue'
 import TextInput from '../components/TextInput.vue'
 import {ValidationObserver} from 'vee-validate'
 import {mapActions} from 'vuex'
+import { handleVuexApiCall } from '../util/helper'
 
 export default {
   components: {
@@ -127,38 +128,12 @@ export default {
       const valid = await this.$refs.loginForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true;
-        await this.handleLogin({email: this.email, password: this.password})
-        this.$router.push({name: 'dashboard'}).catch(err => err)
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
+      this.isLoading = true
 
-          this.isLoading = false
-          return
-        }
+      const result = await handleVuexApiCall(this.handleLogin, {email: this.email, password: this.password})
 
-        let errorMessage = ''
-        const errorCode = error.response.data.errorCode
-
-        switch (errorCode) {
-          case 'INVALID_CREDENTIALS_ERROR': {
-            errorMessage = 'Incorrect email or password'
-            break
-          }
-          default:
-            errorMessage = 'Oops... Something went wrong on our end. '
-        }
-
-        Vue.$toast.open({
-          message: errorMessage,
-          type: 'error'
-        })
-      }
+      if (result.success) this.$router.push({name: 'dashboard'}).catch(err => err)
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     }

@@ -2,7 +2,7 @@ import { httpRequest, createURLFromBlob } from '../../util/helper.js'
 
 const state = {
     profile: {},
-};
+}
 const mutations = {
     SET_USER_PROFILE(state, profile) {
         state.profile = profile
@@ -18,7 +18,7 @@ const actions = {
             '/api/profile/me/change-password',
             payload,
             localStorage.getItem('WEB_APP_KIT_TOKEN')
-        );
+        )
     },
     async handleShowUserProfile() {
         const response = await httpRequest(
@@ -26,7 +26,7 @@ const actions = {
             '/api/profile/me',
             {},
             localStorage.getItem('WEB_APP_KIT_TOKEN')
-        );
+        )
 
         return response.data
     },
@@ -50,7 +50,7 @@ const actions = {
             localStorage.getItem('WEB_APP_KIT_TOKEN'),
             undefined,
             'blob'
-        );
+        )
 
         return createURLFromBlob(response.data)
     },
@@ -62,11 +62,11 @@ const actions = {
             formData,
             localStorage.getItem('WEB_APP_KIT_TOKEN'),
             'multipart/form-data'
-        );
+        )
 
         commit('SET_USER_PROFILE', response.data.user)
         return response.data.user
     },
-};
+}
 
 export default { state, getters, actions, mutations }

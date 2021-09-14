@@ -105,6 +105,7 @@ import { ValidationObserver } from 'vee-validate'
 import Vue from 'vue'
 import TextInput from '../components/TextInput.vue'
 import { mapActions } from 'vuex'
+import { handleVuexApiCall } from '../util/helper'
 
 export default {
   components: {
@@ -118,7 +119,7 @@ export default {
       password: '',
       password_confirmation: '',
       isLoading: false
-    };
+    }
   },
   methods: {
     ...mapActions(['handleChangePassword']),
@@ -126,54 +127,18 @@ export default {
       const valid = await this.$refs.changePasswordForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true
+      this.isLoading = true
 
-        const payload = {
-          old_password: this.old_password,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        }
-
-        await this.handleChangePassword(payload)
-
-        Vue.$toast.open({
-          message: 'Your password has been changed successfully!',
-          type: 'success'
-        });
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error'
-          })
-
-          this.isLoading = false
-          return
-        }
-
-        console.log('error', error.response.data)
-        let errorMessage = ''
-        const errorCode = error.response.data.errorCode
-
-        switch (errorCode) {
-          case 'VALIDATION_ERROR': {
-            errorMessage = 'Current password is incorrect'
-            break
-          }
-          case 'UNAUTHENTICATED_ERROR': {
-            errorMessage = 'Session is expired'
-            break
-          }
-          default:
-            errorMessage = 'Oops... Something went wrong on our end.'
-        }
-
-        Vue.$toast.open({
-          message: errorMessage,
-          type: 'error'
-        })
+      const payload = {
+        old_password: this.old_password,
+        password: this.password,
+        password_confirmation: this.password_confirmation
       }
+
+      const result = await handleVuexApiCall(this.handleChangePassword, payload)
+
+      if (result.success) Vue.$toast.open({ message: 'Your password has been changed successfully!',type: 'success' })
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     }

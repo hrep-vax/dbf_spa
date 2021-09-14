@@ -285,7 +285,7 @@ import {ValidationObserver} from 'vee-validate'
 import Vue from 'vue'
 import TextInput from '../components/TextInput.vue'
 import {mapActions} from 'vuex'
-import {createURLFromBlob} from '../util/helper'
+import {createURLFromBlob, handleVuexApiCall} from '../util/helper'
 
 export default {
   components: {
@@ -326,34 +326,26 @@ export default {
       'handleUploadUserProfilePic',
     ]),
     async getUserProfile() {
-      try {
-        this.isLoading = true;
-        const userProfile = await this.handleShowUserProfile();
+      this.isLoading = true
 
-        this.id = userProfile.user.id;
-        this.email = userProfile.user.email;
-        this.first_name = userProfile.user.first_name;
-        this.last_name = userProfile.user.last_name;
-        this.middle_name = userProfile.user.middle_name;
-        this.mobile_number = userProfile.user.mobile_number;
-        this.sex = userProfile.user.sex;
-        this.birthday = userProfile.user.birthday;
-        this.home_address = userProfile.user.home_address;
-        this.barangay = userProfile.user.barangay;
-        this.city = userProfile.user.city;
-        this.region = userProfile.user.region;
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've recieved too many requests from you, please try again later.",
-            type: 'error'
-          })
+      const result = await handleVuexApiCall(this.handleShowUserProfile, {})
 
-          this.isLoading = false
-          return
-        }
+      if (result.success) {
+        const userProfile = result.data.user
 
-      }
+        this.id = userProfile.id
+        this.email = userProfile.email
+        this.first_name = userProfile.first_name
+        this.last_name = userProfile.last_name
+        this.middle_name = userProfile.middle_name
+        this.mobile_number = userProfile.mobile_number
+        this.sex = userProfile.sex
+        this.birthday = userProfile.birthday
+        this.home_address = userProfile.home_address
+        this.barangay = userProfile.barangay
+        this.city = userProfile.city
+        this.region = userProfile.region
+      } else console.log("[Get Profile] " + result.error.message)
 
       this.isLoading = false
     },
@@ -361,120 +353,61 @@ export default {
       const valid = await this.$refs.profileForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true
+      this.isLoading = true
 
-        const payload = {
-          id: this.id,
-          email: this.email,
-          first_name: this.first_name,
-          last_name: this.last_name,
-          middle_name: this.middle_name,
-          mobile_number: this.mobile_number,
-          sex: this.sex,
-          birthday: this.birthday,
-          home_address: this.home_address,
-          barangay: this.barangay,
-          city: this.city,
-          region: this.region
-        }
-
-        await this.handleUpdateUserProfile(payload)
-
-        Vue.$toast.open({
-          message: 'Updated profile saved!',
-          type: 'success'
-        })
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error',
-          })
-
-          this.isLoading = false
-          return
-        }
-
-        if (error.response.data) {
-          let errorMessage = ''
-          const errorCode = error.response.data.errorCode
-
-          switch (errorCode) {
-            case 'VALIDATION_ERROR': {
-              errorMessage = 'Profile field/s format invalid'
-              break
-            }
-            default:
-              errorMessage = 'Oops... Something went wrong on our end. '
-          }
-
-          if (errorCode !== 'UNAUTHENTICATED_ERROR') {
-            Vue.$toast.open({
-              message: errorMessage,
-              type: 'error'
-            })
-          }
-        }
+      const payload = {
+        id: this.id,
+        email: this.email,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        middle_name: this.middle_name,
+        mobile_number: this.mobile_number,
+        sex: this.sex,
+        birthday: this.birthday,
+        home_address: this.home_address,
+        barangay: this.barangay,
+        city: this.city,
+        region: this.region
       }
+
+      const result = await handleVuexApiCall(this.handleUpdateUserProfile, payload)
+
+      if (result.success) Vue.$toast.open({ message: 'Updated profile saved!',type: 'success' })
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     },
     async getUserProfilePicture() {
-      try {
-        this.isProfilePictureLoading = true
-        let imgURL = await this.handleGetUserProfilePic()
-        this.profilePictureSrc = imgURL
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
+      this.isProfilePictureLoading = true
 
-          this.isProfilePictureLoading = false
-          return
-        }
-      }
+      const result = await handleVuexApiCall(this.handleGetUserProfilePic, {})
+
+      if (result.success) this.profilePictureSrc = result.data
+      else console.log("[Get Profile Picture] " + result.error.message)
 
       this.isProfilePictureLoading = false
     },
     async changeProfilePic() {
-      try {
-        const profilePicToUpload = this.$refs.file.files[0]
+      const profilePicToUpload = this.$refs.file.files[0]
 
-        /* Manual validation for the input file on click */
-        const {valid} = await this.$refs.profilePicUpload.validate(profilePicToUpload)
-        if (!valid) return
+      /* Manual validation for the input file on click */
+      const {valid} = await this.$refs.profilePicUpload.validate(profilePicToUpload)
+      if (!valid) return
 
-        this.profilePictureToUpload = profilePicToUpload
-        this.isProfilePictureLoading = true
+      this.profilePictureToUpload = profilePicToUpload
+      this.isProfilePictureLoading = true
 
-        let formData = new FormData()
-        formData.append('image', this.profilePictureToUpload)
+      let formData = new FormData()
+      formData.append('image', this.profilePictureToUpload)
 
-        await this.handleUploadUserProfilePic(formData)
+      const result = await handleVuexApiCall(this.handleUploadUserProfilePic, formData)
 
+      if (result.success) {
         this.profilePictureSrc = createURLFromBlob(this.profilePictureToUpload)
+        Vue.$toast.open({ message: 'Profile picture updated successfully!', type: 'success'})
 
-        Vue.$toast.open({
-          message: 'Profile picture updated successfully!',
-          type: 'success'
-        })
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
-          this.isProfilePictureLoading = false
-        } else if (error.response.data.errorCode === 'VALIDATION_ERROR') {
-          Vue.$toast.open({
-            message: error.response.data.message,
-            type: 'error'
-          })
-        }
-      }
+      } else Vue.$toast.open({ message: result.error.message, type: result.error.type })
+
       this.isProfilePictureLoading = false
     }
   }

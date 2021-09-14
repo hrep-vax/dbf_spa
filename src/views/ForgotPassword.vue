@@ -103,6 +103,7 @@ import Vue from 'vue'
 import TextInput from '../components/TextInput.vue'
 import {ValidationObserver} from 'vee-validate'
 import {mapActions} from 'vuex'
+import { handleVuexApiCall } from '../util/helper'
 
 export default {
   data: () => ({
@@ -120,43 +121,12 @@ export default {
       const valid = await this.$refs.forgotPasswordForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true
+      this.isLoading = true
 
-        await this.handleForgotPassword(this.email)
+      const result = await handleVuexApiCall(this.handleForgotPassword, this.email)
 
-        Vue.$toast.open({
-          message: 'Verification message sent! Please check your email.',
-          type: 'success'
-        })
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
-
-          this.isLoading = false
-          return
-        }
-
-        let errorMessage = ''
-        const errorCode = error.response.data.errorCode
-
-        switch (errorCode) {
-          case 'SMTP_ERROR': {
-            errorMessage = 'Email sending failed. Please try again.'
-            break
-          }
-          default:
-            errorMessage = 'Oops... Something went wrong on our end.'
-        }
-
-        Vue.$toast.open({
-          message: errorMessage,
-          type: 'error'
-        })
-      }
+      if (result.success) Vue.$toast.open({ message: 'Verification message sent! Please check your email.', type: 'success' })
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     },
@@ -164,5 +134,5 @@ export default {
       this.$router.push({name: 'login'}).catch(err => err)
     },
   },
-};
+}
 </script>

@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 Vue.use(VueToast, {
   position: 'top',
   dimissible: 'true'
-});
+})
 
 new Vue({
   router,

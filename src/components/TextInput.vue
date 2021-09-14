@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { ValidationProvider } from 'vee-validate';
+  import { ValidationProvider } from 'vee-validate'
 
   export default {
     name: 'TextInput',
@@ -51,18 +51,18 @@
     watch: {
       currentValue (val) {
         // allows us to use v-model on our input.
-        this.$emit('input', val);
+        this.$emit('input', val)
       },
       value(val) {
         if (val !== this.currentValue) {
-          this.currentValue = val;
+          this.currentValue = val
         }
       }
     },
     created() {
       if (this.value) {
-        this.currentValue = this.value;
+        this.currentValue = this.value
       }
     }
-  };
+  }
 </script>

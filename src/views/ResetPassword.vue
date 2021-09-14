@@ -119,10 +119,11 @@
 </template>
 
 <script>
-import {ValidationObserver} from 'vee-validate';
-import Vue from 'vue';
-import TextInput from '../components/TextInput.vue';
-import {mapActions} from 'vuex';
+import {ValidationObserver} from 'vee-validate'
+import Vue from 'vue'
+import TextInput from '../components/TextInput.vue'
+import {mapActions} from 'vuex'
+import { handleVuexApiCall } from '../util/helper'
 
 export default {
   data: () => ({
@@ -142,51 +143,22 @@ export default {
       const valid = await this.$refs.resetPasswordForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true
+      this.isLoading = true
 
-        const payload = {
+      const payload = {
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation,
           token: this.$route.query.token
-        }
-
-        await this.handleResetPassword(payload)
-
-        this.$router.push({name: 'login'}).catch(err => err)
-        Vue.$toast.open({
-          message: 'Reset password successful!',
-          type: 'success'
-        })
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
-
-          this.isLoading = false
-          return
-        }
-
-        let errorMessage = ''
-        const errorCode = error.response.data.errorCode
-
-        switch (errorCode) {
-          case 'VALIDATION_ERROR': {
-            errorMessage = 'Your email or token is invalid'
-            break
-          }
-          default:
-            errorMessage = 'Oops... Something went wrong on our end. '
-        }
-
-        Vue.$toast.open({
-          message: errorMessage,
-          type: 'error'
-        })
       }
+
+      const result = await handleVuexApiCall(this.handleResetPassword, payload)
+
+      if (result.success) {
+        this.$router.push({name: 'login'}).catch(err => err)
+        Vue.$toast.open({ message: 'Reset password successful!',type: 'success' })
+      }
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     },
