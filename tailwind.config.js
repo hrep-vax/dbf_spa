@@ -27,6 +27,9 @@ module.exports = {
         'message': '#424242',
         'message-darker': '#1b1b1b',
         'message-lighter': '#6d6d6d'
+      },
+      fontFamily: {
+        inter: ["'Inter'", defaultTheme.fontFamily.serif]
       }
     }
   },
