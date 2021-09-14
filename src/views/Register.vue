@@ -140,10 +140,11 @@
 </template>
 
 <script>
-import {ValidationObserver} from 'vee-validate';
-import {mapActions} from 'vuex';
-import TextInput from '../components/TextInput.vue';
-import Vue from 'vue';
+import {ValidationObserver} from 'vee-validate'
+import {mapActions} from 'vuex'
+import TextInput from '../components/TextInput.vue'
+import Vue from 'vue'
+import { handleVuexApiCall } from '../util/helper'
 
 export default {
   name: 'Register',
@@ -168,52 +169,23 @@ export default {
       const valid = await this.$refs.registrationForm.validate()
       if (!valid) return
 
-      try {
-        this.isLoading = true
+      this.isLoading = true
 
-        const payload = {
+      const payload = {
           email: this.email,
           first_name: this.first_name,
           last_name: this.last_name,
           password: this.password,
           password_confirmation: this.password_confirmation
-        }
+      }
 
-        await this.handleRegistration(payload)
+      const result = await handleVuexApiCall(this.handleRegistration, payload)
 
+      if (result.success) {
         this.$router.push({name: 'home'}).catch(err => err)
-
-        Vue.$toast.open({
-          message: 'Welcome, ' + this.first_name + '!',
-          type: 'success',
-        })
-      } catch (error) {
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
-
-          this.isLoading = false
-          return
-        }
-
-        let errorMessage = ''
-        const errorCode = error.response.data.errorCode
-
-        switch (errorCode) {
-          case 'VALIDATION_ERROR': {
-            errorMessage = 'Invalid email/password'
-            break
-          }
-          default:
-            errorMessage = 'Oops... Something went wrong on our end.'
-        }
-
-        Vue.$toast.open({
-          message: errorMessage,
-          type: 'error'
-        })
+        Vue.$toast.open({ message: 'Welcome, ' + this.first_name + '!', type: 'success'})
+      } else {
+        Vue.$toast.open({ message: result.error.message, type: result.error.type })
       }
 
       this.isLoading = false

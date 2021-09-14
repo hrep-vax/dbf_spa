@@ -3,7 +3,8 @@ import { httpRequest } from '../../util/helper.js'
 const state = {
     userDetails: {},
     tokenIsExpired: false
-};
+}
+
 const mutations = {
     SET_USER_DETAILS(state, userDetails) {
         state.userDetails = userDetails
@@ -46,7 +47,6 @@ const actions = {
         commit('SET_USER_DETAILS', {})
     },
     async handleRegistration({ commit }, userDetails) {
-        console.log(userDetails);
         const response = await httpRequest(
             'post',
             '/api/auth/register',
@@ -67,13 +67,11 @@ const actions = {
             'post',
             '/api/auth/show-email-availability',
             { email: email }
-        );
+        )
         return response.data.email_available
     },
     async handleForgotPassword(_, email) {
-        await httpRequest('post', '/api/auth/forgot-password', {
-            email: email,
-        })
+        await httpRequest('post', '/api/auth/forgot-password', { email })
     },
 
     async handleResetPassword(_, payload) {

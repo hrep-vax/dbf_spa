@@ -110,7 +110,7 @@ extend('must_exist', {
     let available = true
 
     try {
-      available = await store.dispatch('handleEmailAvailability', value);
+      available = await store.dispatch('handleEmailAvailability', value)
     } catch (err) {
       console.error(err)
     }

@@ -55,6 +55,7 @@
 <script>
 import {mapActions} from 'vuex'
 import Vue from 'vue'
+import {handleVuexApiCall} from '../util/helper'
 
 export default {
   data: () => ({
@@ -63,22 +64,13 @@ export default {
   methods: {
     ...mapActions(['handleLogout']),
     async logout() {
-      try {
-        this.isLoading = true
-        await this.handleLogout()
-        this.$router.push({name: 'landing'}).catch(err => err)
-      } catch (error) {
-        console.log(error)
-        if (error.response.status === 429) {
-          Vue.$toast.open({
-            message: "We've received too many requests from you, please try again later.",
-            type: 'error'
-          })
 
-          this.isLoading = false
-          return
-        }
-      }
+      this.isLoading = true
+
+      const result = await handleVuexApiCall(this.handleLogout, {})
+
+      if (result.success) this.$router.push({name: 'landing'}).catch(err => err)
+      else Vue.$toast.open({ message: result.error.message, type: result.error.type })
 
       this.isLoading = false
     }

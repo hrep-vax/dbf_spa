@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: {content: ["./public/**/*.html", "./src/**/*.vue"]},
   darkMode: false, // or 'media' or 'class'
@@ -27,6 +29,9 @@ module.exports = {
         'message': '#424242',
         'message-darker': '#1b1b1b',
         'message-lighter': '#6d6d6d'
+      },
+      fontFamily: {
+        inter: ["'Inter'", defaultTheme.fontFamily.serif]
       }
     }
   },
