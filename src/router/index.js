@@ -8,6 +8,7 @@ import ResetPassword from '../views/ResetPassword.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import Landing from '../views/Landing.vue'
 import Dbf from '../views/DBFview.vue'
+import DbfAdd from '../views/DBFAdd.vue'
 import Home from '../components/Home.vue'
 import Profile from '../components/Profile.vue'
 import ChangePassword from '../components/ChangePassword.vue'
@@ -53,6 +54,12 @@ const routes = [
         name: 'dbf_view',
         component: Dbf,
         meta: { title: 'DBF', requiresAuth: true },
+      },
+       {
+        path: 'dbf_add',
+        name: 'dbf_add',
+        component: DbfAdd,
+        meta: { title: 'DBF-Add', requiresAuth: true },
       },
       {
         path: 'change-password',

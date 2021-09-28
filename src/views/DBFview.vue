@@ -11,15 +11,52 @@
         <div class="border-t border-gray-200"/>
         
       </div>
+      <div>
         <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
           <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> Employee Id:</label>
           <div class="col-span-2">
-            <app-text-input v-model="emp_id" id = "emp_id" name="emp_id" rules="required|max:255"/>
-            <p>Message is: {{ emp_id }}</p>
-
-          </div>
-          
+            <app-text-input v-model="emp_id" id = "emp_id" name="emp_id" rules="required|max:255"/>          
+          </div>         
         </div>
+
+         <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> Record count:</label>
+          <div class="col-span-2">
+           {{count}}       
+          </div>  
+        </div>
+   <!-- <p>{{message}}</p> -->
+        <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> voucher:</label>
+          <div class="col-span-2">
+           {{voucher}}       
+          </div>  
+        </div>
+
+         <!-- <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> check:</label>
+          <div class="col-span-2">
+           {{check}}       
+          </div>  
+        </div>
+
+         <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> code:</label>
+          <div class="col-span-2">
+           {{code}}       
+          </div>      
+        </div>
+
+          <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> amount:</label>
+          <div class="col-span-2">
+           {{amount}}       
+          </div>  
+        </div> -->
+
+
+      </div>
+        
            <div class="grid justify-items-end">
             <button
                 id="profile-submit-btn"
@@ -57,7 +94,7 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              <p v-else>Save</p>
+              <p v-else>Search</p>
             </button>
           </div>
     </div>
@@ -78,7 +115,14 @@ export default {
   },
   data() {
     return{
-       emp_id: ''
+       emp_id: '',
+       count:'',
+      //  message:'',
+       voucher:'',
+       check:'',
+        amount:'',
+         code:'',
+         isLoading: false
     }
     
   },
@@ -89,16 +133,33 @@ export default {
     ]),
      async submitForm() {
       const payload = {
-        emp_id: this.emp_id
-       
+        "emp_id": this.emp_id
       }
         const result = await handleVuexApiCall(this.handleDbfShow, payload)
 
-       if (result.success) this.emp_id = result.data
-       else Vue.$toast.open({ message: result.error.message, type: result.error.type })
+       if (result.success) {
+         const length = result.data.dbf.length
+         this.count = length
+        const voucher = [];
+        const check = [];
+        const code = [];
+        const amount = [];
+        // this.message = result.data
+         for (let i = 0 ; i < length ;i++) {
+        var dbf = result.data.dbf[i]
+         voucher[i] = dbf.voucher
+         check[i]  = dbf.check
+         code[i]  = dbf.code
+          amount[i]  = dbf.amount
+         
+        }      
+        this.voucher = voucher;
+        this.check = check;
+        this.code = code;
+        this.amount = amount;
 
-    
-
+      } 
+       else Vue.$toast.open({ message: result.error.message, type: result.error.type })    
     
     }
   }
