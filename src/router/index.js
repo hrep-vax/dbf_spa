@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import Landing from '../views/Landing.vue'
-
+import Dbf from '../views/DBFview.vue'
 import Home from '../components/Home.vue'
 import Profile from '../components/Profile.vue'
 import ChangePassword from '../components/ChangePassword.vue'
@@ -47,6 +47,12 @@ const routes = [
         name: 'profile',
         component: Profile,
         meta: { title: 'Profile', requiresAuth: true },
+      },
+      {
+        path: 'dbf_view',
+        name: 'dbf_view',
+        component: Dbf,
+        meta: { title: 'DBF', requiresAuth: true },
       },
       {
         path: 'change-password',
