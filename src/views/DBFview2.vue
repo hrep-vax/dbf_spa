@@ -22,14 +22,15 @@
          <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
           <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> Record count:</label>
           <div class="col-span-2">
-           {{count}}  -  {{name}}   
+            {{count}}  -  {{name}}
           </div>  
         </div>
    <!-- <p>{{message}}</p> -->
         <div class="grid grid-cols-4 gap-4 mb-4 sm:mb-4">
-          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> voucher:</label>
+          <label for="profile-first-name" class="text-medium font-medium text-message my-auto"> Due Date:</label>
           <div class="col-span-2">
-           {{voucher}}       
+           {{amount}} - {{duedate}}
+                
           </div>  
         </div>
 
@@ -118,12 +119,13 @@ export default {
        emp_id: '',
        count:'',
       //  message:'',
-       voucher:'',
-       check:'',
-        amount:'',
-         code:'',
-         name:'',
-         isLoading: false
+       code:'',
+       amount:'',
+       orno:'',
+       duedate:'',
+       date_used:'',
+       name:'',
+       isLoading: false
     }
     
   },
@@ -139,28 +141,33 @@ export default {
         const result = await handleVuexApiCall(this.handleDbfShow, payload)
 
        if (result.success) {
-         const length = result.data.dbf.length
+         var length = result.data.dbf.length
          this.count = length
-        const voucher = [];
-        const check = [];
         const code = [];
         const amount = [];
-const name = "";
+        const orno = [];
+        const duedate = [];
+        const date_used = [];
+        var name = "";
         // this.message = result.data
          for (let i = 0 ; i < length ;i++) {
-        var dbf = result.data.name[i]
-         voucher[i] = name.voucher
-         check[i]  = name.check
-         code[i]  = name.code
-          amount[i]  = name.amount
-          name = result.data.name
+        var dbf = result.data.dbf[i]
+         code[i]  = dbf.code
+         amount[i]  = dbf.amount
+         orno[i] = dbf.orno
+         duedate[i]  = dbf.duedate
+         date_used[i]  = dbf.date_used
+         name = dbf.name
          
         }      
-        this.voucher = voucher;
-        this.check = check;
         this.code = code;
         this.amount = amount;
+        this.orno = orno;
+        this.duedate = duedate;
+        this.date_used = date_used;
          this.name = name;
+        
+            
 
       } 
        else Vue.$toast.open({ message: result.error.message, type: result.error.type })    

@@ -7,8 +7,11 @@ import Register from '../views/Register.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import Landing from '../views/Landing.vue'
-import Dbf from '../views/DBFview.vue'
-import DbfAdd from '../views/DBFAdd.vue'
+//import Dbf from '../views/DBFview.vue'
+//import DbfAdd from '../views/DBFAdd.vue'
+import Dbf from '../views/DBFview2.vue'
+import DbfAdd from '../views/DBFAdd2.vue'
+import Check from '../views/Checkview.vue'
 import Home from '../components/Home.vue'
 import Profile from '../components/Profile.vue'
 import ChangePassword from '../components/ChangePassword.vue'
@@ -60,6 +63,12 @@ const routes = [
         name: 'dbf_add',
         component: DbfAdd,
         meta: { title: 'DBF-Add', requiresAuth: true },
+      },
+      {
+        path: 'check_view',
+        name: 'check_view',
+        component: Check,
+        meta: { title: 'Check', requiresAuth: true },
       },
       {
         path: 'change-password',

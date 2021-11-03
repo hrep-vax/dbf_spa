@@ -10,7 +10,8 @@
         <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'home'}">Home</router-link>
         <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'profile'}">Profile</router-link>
         <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'dbf_view'}">DBF</router-link>
-          <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'dbf_add'}">DBF- ADD</router-link>
+        <!--<router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'dbf_add'}">DBF- ADD</router-link>-->
+        <router-link class="mr-5 hover:text-message hover:underline" :to="{name: 'check_view'}">CHECK</router-link>
       </nav>
       <button
           id="logout-btn"

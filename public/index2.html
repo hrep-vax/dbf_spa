@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.png">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <script src="https://unpkg.com/vue@3.0.2"></script>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app">
+    <div v-if="showBooks">
+      <p>{{title}} - {{author}} - {{age}}</p>
+    </div>
+    <button @click="toggleShowBooks">
+      <span v-if="showBooks">Hide Books</span>
+      <span v-else>Show Books</span>
+      <!--<span v-if="!showBooks">Show Books</span>-->
+    </button>
+    <div v-show="showBooks">currently showing books</div>
+
+    <button v-on:click="age++">Increase age</button>
+    <button v-on:click="age--">Decrease age</button>
+    <!--<div @click="title = 'someting else'">Change book title</div>-->
+    <!--<div @click="changeTitle">Change book title</div>-->
+    <div @click="changeTitle('Oathbringer')">Change book title</div>
+  </div>
+  </div>
+  <!-- built files will be auto injected -->
+  <h1>Hello, Vue!</h1>
+  <script src="app.js"></script>
+</body>
+
+</html>
