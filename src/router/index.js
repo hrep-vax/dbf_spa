@@ -1,20 +1,24 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Dashboard from '../views/Dashboard.vue';
-import Login from '../views/Login.vue';
-import ForgotPassword from '../views/ForgotPassword.vue';
-import Register from '../views/Register.vue';
-import ResetPassword from '../views/ResetPassword.vue';
-import PageNotFound from '../views/PageNotFound.vue';
-import Landing from '../views/Landing.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Dashboard from '../views/Dashboard.vue'
+import Login from '../views/Login.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
+import Register from '../views/Register.vue'
+import ResetPassword from '../views/ResetPassword.vue'
+import PageNotFound from '../views/PageNotFound.vue'
+import Landing from '../views/Landing.vue'
+//import Dbf from '../views/DBFview.vue'
+//import DbfAdd from '../views/DBFAdd.vue'
+import Dbf from '../views/DBFview2.vue'
+import DbfAdd from '../views/DBFAdd2.vue'
+import Check from '../views/Checkview.vue'
+import Home from '../components/Home.vue'
+import Profile from '../components/Profile.vue'
+import ChangePassword from '../components/ChangePassword.vue'
 
-import Home from '../components/Home.vue';
-import Profile from '../components/Profile.vue';
-import ChangePassword from '../components/ChangePassword.vue';
+Vue.use(VueRouter)
 
-Vue.use(VueRouter);
-
-const DEFAULT_WINDOW_TITLE = 'Web App Kit';
+const DEFAULT_WINDOW_TITLE = 'Web App Kit'
 
 const routes = [
   {
@@ -49,6 +53,24 @@ const routes = [
         meta: { title: 'Profile', requiresAuth: true },
       },
       {
+        path: 'dbf_view',
+        name: 'dbf_view',
+        component: Dbf,
+        meta: { title: 'DBF', requiresAuth: true },
+      },
+       {
+        path: 'dbf_add',
+        name: 'dbf_add',
+        component: DbfAdd,
+        meta: { title: 'DBF-Add', requiresAuth: true },
+      },
+      {
+        path: 'check_view',
+        name: 'check_view',
+        component: Check,
+        meta: { title: 'Check', requiresAuth: true },
+      },
+      {
         path: 'change-password',
         name: 'change-password',
         component: ChangePassword,
@@ -80,18 +102,18 @@ const routes = [
     component: PageNotFound,
     meta: { title: 'Page Not Found' }
   },
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
   routes
-});
+})
 
 /* change the window title with the title name of the destination route */
 router.afterEach((to) => {
   document.title = to.meta.title || DEFAULT_WINDOW_TITLE
-});
+})
 
 router.beforeEach((to, from, next) => {
   const isAuthenticatedUser = !!localStorage.getItem('WEB_APP_KIT_TOKEN')
@@ -102,6 +124,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresNoAuth && isAuthenticatedUser)
     next({ name: 'dashboard' })
   else next()
-});
+})
 
 export default router
